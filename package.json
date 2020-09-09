@@ -1,0 +1,25 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "aWeb4Devs API",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.10.3",
+    "node": "^14.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dragonpipe/aWeb4DevsAPI.git"
+  },
+  "author": "Wilfredo loreto and Anderson Arciniegas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dragonpipe/aWeb4DevsAPI/issues"
+  },
+  "homepage": "https://github.com/dragonpipe/aWeb4DevsAPI#readme"
+}
