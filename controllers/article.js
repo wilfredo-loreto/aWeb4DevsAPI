@@ -1,8 +1,8 @@
-const Article = require('./article')
+const Article = require('./../controllers/article')
 
 function getArticle(req,res){ 
-    let userID = req.params.userID
-    Usuario.findById(userID, (err, article) => {
+    let articleID = req.params.userID
+    Article.findById(articleID, (err, article) => {
 
         if (err) return res.status(500).send({message: `error nr: ${err}`})
 
@@ -12,13 +12,13 @@ function getArticle(req,res){
     })
 }
 function getArticles(req,res){
-    Usuario.find({}, (err, usuarios)=>{
+    Article.find({}, (err, articles)=>{
 
         if (err) return (res.status(500)).send({message: `error nr: ${err}`})
 
-        if (!usuarios) return (res.status(404)).send({message: `No articles`})
+        if (!articles) return (res.status(404)).send({message: `No articles`})
 
-        res.status(200).send({usuarios})
+        res.status(200).send({articles})
     })
 }
 function updateArticle(req,res){
@@ -26,7 +26,7 @@ function updateArticle(req,res){
     let userID = req.params.userID
     let update= req.body
 
-    Usuario.findByIdAndUpdate(userID, update, (err, articleUpdated) => {
+    Article.findByIdAndUpdate(userID, update, (err, articleUpdated) => {
 
         if (err) return res.status(500).send({message: `Error updating article ${err}`})
 
@@ -37,7 +37,7 @@ function deleteArticle(req,res){
 
     let articleID = req.params.articleID
 
-    Usuario.findById(articleID, (err, article) => {
+    Article.findById(articleID, (err, article) => {
 
         article.remove(err =>{
             
@@ -58,7 +58,7 @@ function saveArticle(req,res){
     article.educacion = req.body.educacion
     article.picture = req.body.picture
 
-    Need to update with the current model of article
+    Needs to be updated with the current model of article
 */
 
     article.save((err, savedArticle) => {
