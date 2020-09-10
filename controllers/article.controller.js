@@ -1,4 +1,4 @@
-const Article = require('./../controllers/article')
+const Article = require('./article.model')
 
 function getArticle(req,res){ 
     let articleID = req.params.userID
@@ -50,16 +50,14 @@ function deleteArticle(req,res){
 function saveArticle(req,res){
     console.log(req.body)
     let article = new Article()
-    /*
-    article.user = req.body.user
-    article.password = req.body.password
-    article.correo = req.body.correo
-    article.ciudad = req.body.ciudad
-    article.educacion = req.body.educacion
-    article.picture = req.body.picture
-
-    Needs to be updated with the current model of article
-*/
+    article.type=req.body.type
+    article.title=req.body.title
+    article.summary=req.body.summary
+    article.date=req.body.date
+    article.logo=req.body.logo
+    article.tags=req.body.tags
+    article.content=req.body.content
+        
 
     article.save((err, savedArticle) => {
 
