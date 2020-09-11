@@ -5,7 +5,6 @@ const Schema = mongoose.Schema
 const articleSchema= Schema({
 
     
-    type:String, 
     title:String,
     summary:String,
     date:Date,
