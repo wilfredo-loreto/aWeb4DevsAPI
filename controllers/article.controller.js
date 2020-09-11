@@ -1,4 +1,4 @@
-const Article = require('./article.model')
+const Article = require('../models/article.model')
 
 function getArticle(req,res){ 
     let articleID = req.params.articleID

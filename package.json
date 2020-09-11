@@ -9,14 +9,19 @@
     "express": "^4.17.1",
     "moment": "^2.27.0",
     "mongoose": "^5.10.3",
-    "node": "^14.8.0"
+    "node": "^12.16.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
   },
   "scripts": {
+<<<<<<< HEAD
     "start":"nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+=======
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+>>>>>>> 0924bfd9f5c59c7c8e3fa646f81272f9e84e5a18
   },
   "repository": {
     "type": "git",
