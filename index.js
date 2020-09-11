@@ -1,22 +1,27 @@
 "use strict";
 
-const MongoClient = require("mongodb").MongoClient;
+const mongoose = require("mongoose");
+var options = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
 const uri =
   "mongodb+srv://wilfredo:yzz3rvay6@cluster0.gqdek.mongodb.net/prueba1?retryWrites=" +
   "true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true });
-async function run() {
+
+async function conectionToDb() {
+  var connection = mongoose.connection;
   try {
-    await client.connect();
-    const collection = client.db("prueba1").collection("articles");
-    const example = await collection.findOne();
-    console.log(example);
-    console.log("Conexion establecida");
-    // perform actions on the collection object
+    await mongoose.connect(uri, options);
+    console.log("connected");
+      connection.db.collection("articles", function (err, collection) {
+        collection.find().toArray(function (err, data) {
+          console.log(data);
+        });
+      });
+   
   } catch (err) {
-    console.log(err.stack);
-  } finally {
-    client.close();
+    console.log("could not connect. Error: " + err);
   }
 }
-run();
+conectionToDb();

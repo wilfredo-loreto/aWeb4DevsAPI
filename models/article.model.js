@@ -7,8 +7,8 @@ const articleSchema= Schema({
     
     title:String,
     summary:String,
+    img:String,
     date:Date,
-    logo:String,
     tags:Array,
     content:Array,
 

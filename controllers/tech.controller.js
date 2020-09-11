@@ -1,4 +1,4 @@
-import Tech from "./../models/tech.model"
+const Tech = require('./article.model')
 
 function getTech(req,res){ 
     let techID = req.params.techID

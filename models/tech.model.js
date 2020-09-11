@@ -9,6 +9,7 @@ const techSchema= Schema({
     title:String,
     summary:String,
     date:Date,
+    logo:String,
     tags:Array,
     content:Array,
 
