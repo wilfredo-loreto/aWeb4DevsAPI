@@ -1,7 +1,7 @@
-const Tech = require('./tech.model')
+import Tech from "./../models/tech.model"
 
-function getArticle(req,res){ 
-    let techID = req.params.userID
+function getTech(req,res){ 
+    let techID = req.params.techID
     Tech.findById(techID, (err, tech) => {
 
         if (err) return res.status(500).send({message: `error nr: ${err}`})
@@ -11,22 +11,22 @@ function getArticle(req,res){
         res.status(200).send({tech})
     })
 }
-function getArticles(req,res){
-    Tech.find({}, (err, articles)=>{
+function getTechs(req,res){
+    Tech.find({}, (err, techs)=>{
 
         if (err) return (res.status(500)).send({message: `error nr: ${err}`})
 
-        if (!articles) return (res.status(404)).send({message: `No articles`})
+        if (!techs) return (res.status(404)).send({message: `No techs`})
 
-        res.status(200).send({articles})
+        res.status(200).send({techs})
     })
 }
-function updateArticle(req,res){
+function updateTech(req,res){
 
-    let userID = req.params.userID
+    let techID = req.params.techID
     let update= req.body
 
-    Tech.findByIdAndUpdate(userID, update, (err, articleUpdated) => {
+    Tech.findByIdAndUpdate(techID, update, (err, articleUpdated) => {
 
         if (err) return res.status(500).send({message: `Error updating tech ${err}`})
 
@@ -68,9 +68,9 @@ function saveTech(req,res){
 }
 
 module.exports={
-    getArticle,
-    getArticles,
-    updateArticle,
+    getTech,
+    getTechs,
+    updateTech,
     deleteArticle,
     saveTech
 }

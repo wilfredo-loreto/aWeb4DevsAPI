@@ -1,7 +1,7 @@
 const Article = require('./article.model')
 
 function getArticle(req,res){ 
-    let articleID = req.params.userID
+    let articleID = req.params.articleID
     Article.findById(articleID, (err, article) => {
 
         if (err) return res.status(500).send({message: `error nr: ${err}`})
@@ -23,10 +23,10 @@ function getArticles(req,res){
 }
 function updateArticle(req,res){
 
-    let userID = req.params.userID
+    let articleID = req.params.articleID
     let update= req.body
 
-    Article.findByIdAndUpdate(userID, update, (err, articleUpdated) => {
+    Article.findByIdAndUpdate(articleID, update, (err, articleUpdated) => {
 
         if (err) return res.status(500).send({message: `Error updating article ${err}`})
 
@@ -54,7 +54,6 @@ function saveArticle(req,res){
     article.title=req.body.title
     article.summary=req.body.summary
     article.date=req.body.date
-    article.logo=req.body.logo
     article.tags=req.body.tags
     article.content=req.body.content
         
