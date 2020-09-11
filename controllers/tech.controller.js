@@ -23,10 +23,10 @@ function getTechs(req,res){
 }
 function updateTech(req,res){
 
-    let techID = req.params.techID
+    let techTitle = req.params.title
     let update= req.body
 
-    Tech.findByIdAndUpdate(techID, update, (err, articleUpdated) => {
+    Tech.findOneAndUpdate({$or:[{title: techTitle}] }, update, (err, articleUpdated) => {
 
         if (err) return res.status(500).send({message: `Error updating tech ${err}`})
 
@@ -35,9 +35,9 @@ function updateTech(req,res){
 }
 function deleteTech(req,res){
 
-    let techID = req.params.techID
+    let techTitle = req.params.title
 
-    Tech.findById(techID, (err, tech) => {
+    Tech.findOne({$or:[{title: techTitle}] }, (err, tech) => {
 
         tech.remove(err =>{
             

@@ -23,10 +23,10 @@ function getArticles(req,res){
 }
 function updateArticle(req,res){
 
-    let articleID = req.params.articleID
+    let articleTitle = req.params.title
     let update= req.body
 
-    Article.findByIdAndUpdate(articleID, update, (err, articleUpdated) => {
+    Article.findByOneAndUpdate({$or:[{title: articleTitle}] }, update, (err, articleUpdated) => {
 
         if (err) return res.status(500).send({message: `Error updating article ${err}`})
 
@@ -35,9 +35,9 @@ function updateArticle(req,res){
 }
 function deleteArticle(req,res){
 
-    let articleID = req.params.articleID
+    let articleTitle = req.params.title
 
-    Article.findById(articleID, (err, article) => {
+    Article.findOne({$or:[{title: articleTitle}] }, (err, article) => {
 
         article.remove(err =>{
             
