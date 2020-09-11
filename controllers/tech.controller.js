@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-const Tech = require('./article.model')
-=======
 const Tech = require('../models/tech.model')
->>>>>>> 0924bfd9f5c59c7c8e3fa646f81272f9e84e5a18
 
 function getTech(req,res){ 
     let techID = req.params.techID
