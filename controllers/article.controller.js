@@ -1,7 +1,7 @@
-const Article = require('./../controllers/article')
+const Article = require('../models/article.model')
 
 function getArticle(req,res){ 
-    let articleID = req.params.userID
+    let articleID = req.params.articleID
     Article.findById(articleID, (err, article) => {
 
         if (err) return res.status(500).send({message: `error nr: ${err}`})
@@ -23,10 +23,10 @@ function getArticles(req,res){
 }
 function updateArticle(req,res){
 
-    let userID = req.params.userID
+    let articleID = req.params.articleID
     let update= req.body
 
-    Article.findByIdAndUpdate(userID, update, (err, articleUpdated) => {
+    Article.findByIdAndUpdate(articleID, update, (err, articleUpdated) => {
 
         if (err) return res.status(500).send({message: `Error updating article ${err}`})
 
@@ -50,16 +50,13 @@ function deleteArticle(req,res){
 function saveArticle(req,res){
     console.log(req.body)
     let article = new Article()
-    /*
-    article.user = req.body.user
-    article.password = req.body.password
-    article.correo = req.body.correo
-    article.ciudad = req.body.ciudad
-    article.educacion = req.body.educacion
-    article.picture = req.body.picture
-
-    Needs to be updated with the current model of article
-*/
+    article.type=req.body.type
+    article.title=req.body.title
+    article.summary=req.body.summary
+    article.date=req.body.date
+    article.tags=req.body.tags
+    article.content=req.body.content
+        
 
     article.save((err, savedArticle) => {
 

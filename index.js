@@ -1,9 +1,7 @@
-'use strict'
-
+"use strict";
 
 var mongoose = require('mongoose');
 var app = require('./app');
-
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb+srv://wilfredo:yzz3rvay6@cluster0.gqdek.mongodb.net/prueba1?retryWrites=true&w=majority')
