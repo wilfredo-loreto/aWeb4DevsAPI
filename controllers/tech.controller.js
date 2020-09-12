@@ -1,8 +1,8 @@
 const Tech = require('../models/tech.model')
 
 function getTech(req,res){ 
-    let techID = req.params.techID
-    Tech.findById(techID, (err, tech) => {
+    let techTitle = req.params.title;
+    Tech.findOne({$or:[{title: techTitle}] }, (err, tech) => {
 
         if (err) return res.status(500).send({message: `error nr: ${err}`})
 

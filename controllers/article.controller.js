@@ -1,8 +1,8 @@
 const Article = require('../models/article.model')
 
 function getArticle(req,res){ 
-    let articleID = req.params.articleID
-    Article.findById(articleID, (err, article) => {
+    let articleTitle = req.params.title;
+    Article.findOne({$or:[{title: articleTitle}] }, (err, article) => {
 
         if (err) return res.status(500).send({message: `error nr: ${err}`})
 
