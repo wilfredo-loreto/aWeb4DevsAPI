@@ -2,7 +2,7 @@ const Tech = require('../models/tech.model')
 
 function getTech(req,res){ 
     let techTitle = req.params.title;
-    Tech.findOne({$or:[{title: techTitle}] }, (err, tech) => {
+    Tech.findOne({title: techTitle}, (err, tech) => {
 
         if (err) return res.status(500).send({message: `error nr: ${err}`})
 
@@ -23,10 +23,10 @@ function getTechs(req,res){
 }
 function updateTech(req,res){
 
-    let techID = req.params.techID
+    let techTitle = req.params.title
     let update= req.body
 
-    Tech.findByIdAndUpdate(techID, update, (err, articleUpdated) => {
+    Tech.findOneAndUpdate({title: techTitle}, update, (err, articleUpdated) => {
 
         if (err) return res.status(500).send({message: `Error updating tech ${err}`})
 
@@ -35,9 +35,9 @@ function updateTech(req,res){
 }
 function deleteTech(req,res){
 
-    let techID = req.params.techID
+    let techTitle = req.params.title
 
-    Tech.findById(techID, (err, tech) => {
+    Tech.findOne({title: techTitle}, (err, tech) => {
 
         tech.remove(err =>{
             
@@ -50,13 +50,14 @@ function deleteTech(req,res){
 function saveTech(req,res){
     console.log(req.body)
     let tech = new Tech()
-    tech.type=req.body.type
     tech.title=req.body.title
     tech.summary=req.body.summary
+    tech.img=req.body.img
     tech.date=req.body.date
     tech.logo=req.body.logo
     tech.tags=req.body.tags
     tech.content=req.body.content
+    tech.references=req.body.references
         
     tech.save((err, savedTech) => {
 

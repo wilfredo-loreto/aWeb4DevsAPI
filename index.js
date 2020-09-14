@@ -12,7 +12,7 @@ var options = {
 mongoose.Promise = global.Promise;
 mongoose.connect(uri, options)
         .then(() => {
-            console.log("Conexión a la base de datos establecida satisfactoriamente /o/");
+            console.log("Conexion a la base de datos establecida satisfactoriamente /o/");
 
             app.listen(process.env.PORT || port, () => {
                 console.log("Servidor corriendo correctamente en la url: localhost:3700");
@@ -21,4 +21,4 @@ mongoose.connect(uri, options)
         .catch(err => console.log(err));
 
 
-app.set('port', process.env.PORT || 3700);       
+app.set('port', process.env.PORT || port);       

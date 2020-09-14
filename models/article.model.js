@@ -1,21 +1,22 @@
-'use strict'
+"use strict";
 
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
-const articleSchema= Schema({
-
-    title:String,
-    summary:String,
-    date:Date,
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const articleSchema = Schema(
+  {
+    title: String,
+    summary: String,
+    img: String,
+    date: Date,
+    tags: Array,
+    content: Array,
     visits: Number,
-    img:String,
-    tags:Array,
-    content:Array,
-    references: Array
-
-}, 
-{
+    references: Array,
+  },
+  {
     collection: "articles",
-})
+  }
+);
+
 
 module.exports = mongoose.model('Article',articleSchema) 

@@ -1,24 +1,22 @@
-'use strict'
+"use strict";
 
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
-const techSchema= Schema({
-
-    
-   
-    title:String,
-    summary:String,
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const techSchema = Schema(
+  {
+    title: String,
+    summary: String,
+    date: Date,
     img: String,
-    date:Date,
-    tags:Array,
-    content:Array,
-    references: Array
+    logo: String,
+    tags: Array,
+    content: Array,
+    references: Array,
+  },
+  {
+    collection: "techs",
+  }
+);
 
     
-
-},
-{
-    collection: "techs",
-})
-
 module.exports = mongoose.model('Tech',techSchema) 
