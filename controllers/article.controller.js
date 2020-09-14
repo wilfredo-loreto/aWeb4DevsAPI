@@ -2,7 +2,7 @@ const Article = require('../models/article.model')
 
 function getArticle(req,res){ 
     let articleTitle = req.params.title;
-    Article.findOne({$or:[{title: articleTitle}] }, (err, article) => {
+    Article.findOne({title: articleTitle}, (err, article) => {
 
         if (err) return res.status(500).send({message: `error nr: ${err}`})
 
@@ -26,7 +26,7 @@ function updateArticle(req,res){
     let articleTitle = req.params.title
     let update= req.body
 
-    Article.findByOneAndUpdate({$or:[{title: articleTitle}] }, update, (err, articleUpdated) => {
+    Article.findOneAndUpdate({title: articleTitle}, update, (err, articleUpdated) => {
 
         if (err) return res.status(500).send({message: `Error updating article ${err}`})
 
@@ -37,7 +37,7 @@ function deleteArticle(req,res){
 
     let articleTitle = req.params.title
 
-    Article.findOne({$or:[{title: articleTitle}] }, (err, article) => {
+    Article.findOne({title: articleTitle} , (err, article) => {
 
         article.remove(err =>{
             
@@ -50,9 +50,9 @@ function deleteArticle(req,res){
 function saveArticle(req,res){
     console.log(req.body)
     let article = new Article()
-    article.type=req.body.type
     article.title=req.body.title
     article.summary=req.body.summary
+    article.img=req.body.img
     article.date=req.body.date
     article.tags=req.body.tags
     article.content=req.body.content

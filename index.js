@@ -21,4 +21,4 @@ mongoose.connect(uri, options)
         .catch(err => console.log(err));
 
 
-app.set('port', process.env.PORT || 3700);       
+app.set('port', process.env.PORT || port);       
