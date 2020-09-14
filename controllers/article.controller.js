@@ -1,8 +1,9 @@
 const Article = require('../models/article.model')
 
 function getArticle(req,res){ 
-    let articleTitle = req.params.title;
-    Article.findOne({$or:[{title: articleTitle}] }, (err, article) => {
+    let articleTitle = req.params.title.toLowerCase();
+    
+    Article.findOne({title: articleTitle}, (err, article) => {
 
         if (err) return res.status(500).send({message: `error nr: ${err}`})
 
@@ -11,8 +12,9 @@ function getArticle(req,res){
         res.status(200).send({article})
     })
 }
+
 function getArticles(req,res){
-    Article.find({}, (err, articles)=>{
+    Article.find({},{title: 1, summary: 1, date: 1, visits: 1, img: 1}, (err, articles)=>{
 
         if (err) return (res.status(500)).send({message: `error nr: ${err}`})
 
@@ -20,6 +22,16 @@ function getArticles(req,res){
 
         res.status(200).send({articles})
     })
+}
+function getMostVisitedArticles(req,res){
+    Article.find({},{title: 1, summary: 1, date: 1, visits: 1, img: 1}, (err, articles)=>{
+
+        if (err) return (res.status(500)).send({message: `error nr: ${err}`})
+
+        if (!articles) return (res.status(404)).send({message: `No articles`})
+
+        res.status(200).send({articles})
+    }).limit(5).sort({visits: -1})
 }
 function updateArticle(req,res){
 
@@ -72,5 +84,6 @@ module.exports={
     getArticles,
     updateArticle,
     deleteArticle,
-    saveArticle
+    saveArticle,
+    getMostVisitedArticles
 }

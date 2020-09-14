@@ -1,6 +1,5 @@
 'use strict'
 
-
 var express = require('express');
 var ArticleController = require('../controllers/article.controller');
 var TechController = require('../controllers/tech.controller');
@@ -10,6 +9,7 @@ var router = express.Router();
 var multipart = require('connect-multiparty');
 
 router.get('/articles',ArticleController.getArticles);
+router.get('/more-visited-articles',ArticleController.getMostVisitedArticles);
 router.get('/article/:title',ArticleController.getArticle);
 router.put('/article/:title',ArticleController.updateArticle);
 router.post('/save-article',ArticleController.saveArticle);
