@@ -19,7 +19,7 @@ router.post('/save-article',ArticleController.saveArticle);
 router.delete('/delete-article',ArticleController.deleteArticle);
 
 
-router.get('/techs',TechController.getTechs);
+router.get('/techs/:type',TechController.getTechs);
 router.get('/tech/:title',TechController.getTech);
 router.put('/tech/:title',TechController.updateTech);
 router.post('/save-tech',TechController.saveTech);

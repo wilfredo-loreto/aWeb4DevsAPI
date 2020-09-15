@@ -12,7 +12,8 @@ function getTech(req,res){
     })
 }
 function getTechs(req,res){
-    Tech.find({}, (err, techs)=>{
+    let techTipe = req.params.type;
+    Tech.find({type: techTipe},{title: 1, summary: 1, tags: 1, logo: 1}, (err, techs)=>{
 
         if (err) return (res.status(500)).send({message: `error nr: ${err}`})
 

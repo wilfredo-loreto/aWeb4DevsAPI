@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const techSchema = Schema(
   {
     title: String,
+    type: String,
     summary: String,
     date: Date,
     img: String,
