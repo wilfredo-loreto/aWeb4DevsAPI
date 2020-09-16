@@ -12,6 +12,7 @@ var multipart = require('connect-multiparty');
 // CRUD ROUTES
 
 router.get('/articles',ArticleController.getArticles);
+router.get('/search-articles/:keyword',ArticleController.searchArticles);
 router.get('/most-visited-articles',ArticleController.getMostVisitedArticles);
 router.get('/article/:title',ArticleController.getArticle);
 router.put('/article/:title',ArticleController.updateArticle);
@@ -20,6 +21,7 @@ router.delete('/delete-article',ArticleController.deleteArticle);
 
 
 router.get('/techs/:type',TechController.getTechs);
+router.get('/search-techs/:keyword',TechController.searchTechs);
 router.get('/tech/:title',TechController.getTech);
 router.put('/tech/:title',TechController.updateTech);
 router.post('/save-tech',TechController.saveTech);

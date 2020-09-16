@@ -12,8 +12,8 @@ function getTech(req,res){
     })
 }
 function getTechs(req,res){
-    let techTipe = req.params.type;
-    Tech.find({type: techTipe},{title: 1, summary: 1, tags: 1, logo: 1}, (err, techs)=>{
+    let techType = req.params.type;
+    Tech.find({type: techType},{title: 1, summary: 1, tags: 1, logo: 1, _id: 0}, (err, techs)=>{
 
         if (err) return (res.status(500)).send({message: `error nr: ${err}`})
 
@@ -22,6 +22,23 @@ function getTechs(req,res){
         res.status(200).send({techs})
     })
 }
+
+
+function searchTechs(req,res){
+    let keyWord = req.params.keyword.toLowerCase();
+
+    Tech.find({tags: keyWord},{title: 1, summary: 1, tags: 1, _id: 0}, (err, techs) => {
+
+        if (err) return (res.status(500)).send({message: `error nr: ${err}`})
+
+        if (!techs) return (res.status(404)).send({message: `No Techs`})
+
+        res.status(200).send({techs})
+    })
+    
+}
+
+
 function updateTech(req,res){
 
     let techTitle = req.params.title
@@ -74,5 +91,6 @@ module.exports={
     getTechs,
     updateTech,
     deleteTech,
-    saveTech
+    saveTech,
+    searchTechs
 }
