@@ -14,6 +14,7 @@ var multipart = require('connect-multiparty');
 router.get('/articles',ArticleController.getArticles);
 router.get('/most-visited-articles',ArticleController.getMostVisitedArticles);
 router.get('/article/:title',ArticleController.getArticle);
+router.get('/articles/:asideArticles',ArticleController.getArticlesOfAside);
 router.put('/article/:title',ArticleController.updateArticle);
 router.post('/save-article',ArticleController.saveArticle);
 router.delete('/delete-article',ArticleController.deleteArticle);
