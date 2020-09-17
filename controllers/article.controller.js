@@ -36,18 +36,42 @@ function getArticlesOfAside(req, res) {
     res.status(200).send({result});
 });
 }
-function getArticles(req, res) {
-  Article.find(
-    {},
-    { title: 1, summary: 1, date: 1, visits: 1, img: 1 },
-    (err, articles) => {
-      if (err) return res.status(500).send({ message: `error nr: ${err}` });
 
-      if (!articles) return res.status(404).send({ message: `No articles` });
+function getArticles(req,res){
+    Article.find({},{title: 1, summary: 1, date: 1, visits: 1, img: 1, _id: 0}, (err, articles)=>{
 
-      res.status(200).send({ articles });
-    }
-  );
+        if (err) return (res.status(500)).send({message: `error nr: ${err}`})
+
+        if (!articles) return (res.status(404)).send({message: `No articles`})
+
+        res.status(200).send({articles})
+    })
+}
+
+function searchArticles(req,res){
+    let keyWord = req.params.keyword.toLowerCase();
+
+    Article.find({tags: keyWord},{title: 1, summary: 1, tags: 1, _id: 0}, (err, articles) => {
+
+        if (err) return (res.status(500)).send({message: `error nr: ${err}`})
+
+        if (!articles) return (res.status(404)).send({message: `No articles`})
+
+        res.status(200).send({articles})
+    })
+    
+}
+
+
+function getMostVisitedArticles(req,res){
+    Article.find({},{title: 1, summary: 1, date: 1, visits: 1, img: 1}, (err, articles)=>{
+
+        if (err) return (res.status(500)).send({message: `error nr: ${err}`})
+
+        if (!articles) return (res.status(404)).send({message: `No articles`})
+
+        res.status(200).send({articles})
+    }).limit(5).sort({visits: -1})
 }
 function getMostVisitedArticles(req, res) {
   Article.find(
@@ -138,5 +162,6 @@ module.exports = {
   updateArticle,
   deleteArticle,
   saveArticle,
+  searchArticles,
   getMostVisitedArticles
 };
