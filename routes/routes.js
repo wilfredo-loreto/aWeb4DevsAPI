@@ -21,6 +21,8 @@ router.delete('/delete-article',ArticleController.deleteArticle);
 
 
 router.get('/techs/:type',TechController.getTechs);
+router.get('/aside-techs/:type',TechController.asideTechs);
+router.get('/carousel-techs/:type',TechController.carouselTechs);
 router.get('/search-techs/:keyword',TechController.searchTechs);
 router.get('/tech/:title',TechController.getTech);
 router.put('/tech/:title',TechController.updateTech);

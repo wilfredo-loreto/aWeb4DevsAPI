@@ -11,6 +11,7 @@ function getTech(req,res){
         res.status(200).send({tech})
     })
 }
+
 function getTechs(req,res){
     let techType = req.params.type;
     Tech.find({type: techType},{title: 1, summary: 1, tags: 1, logo: 1, _id: 0}, (err, techs)=>{
@@ -22,6 +23,47 @@ function getTechs(req,res){
         res.status(200).send({techs})
     })
 }
+
+function asideTechs(req,res){
+    let techType  = req.params.type;
+
+    if(techType  == "frontend" || techType  == "backend"){
+
+    Tech.find({type: techType},{title: 1, _id: 0}, (err, techs)=>{
+
+        if (err) return (res.status(500)).send({message: `error nr: ${err}`})
+
+        if (!techs) return (res.status(404)).send({message: `No techs`})
+
+        res.status(200).send({techs})
+    })
+    }else{
+        
+    Tech.find({},{title: 1, _id: 0}, (err, techs)=>{
+
+        if (err) return (res.status(500)).send({message: `error nr: ${err}`})
+
+        if (!techs) return (res.status(404)).send({message: `No techs`})
+
+        res.status(200).send({techs})
+    })
+    }
+}
+
+function carouselTechs(req,res){
+    let techType = req.params.type;
+
+    Tech.find({type: techType},{img: 1, _id: 0}, (err, techs)=>{
+
+        if (err) return (res.status(500)).send({message: `error nr: ${err}`})
+
+        if (!techs) return (res.status(404)).send({message: `No techs`})
+
+        res.status(200).send({techs})
+    }).sort({date: -1})
+}
+
+
 
 
 function searchTechs(req,res){
@@ -37,7 +79,6 @@ function searchTechs(req,res){
     })
     
 }
-
 
 function updateTech(req,res){
 
@@ -69,6 +110,7 @@ function saveTech(req,res){
     console.log(req.body)
     let tech = new Tech()
     tech.title=req.body.title
+    tech.type=req.body.type
     tech.summary=req.body.summary
     tech.img=req.body.img
     tech.date=req.body.date
@@ -92,5 +134,7 @@ module.exports={
     updateTech,
     deleteTech,
     saveTech,
-    searchTechs
+    searchTechs,
+    asideTechs,
+    carouselTechs
 }
