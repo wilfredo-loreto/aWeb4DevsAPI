@@ -12,11 +12,6 @@ var multipart = require('connect-multiparty');
 // CRUD ROUTES
 
 router.get('/articles',ArticleController.getArticles);
-<<<<<<< HEAD
-=======
-router.get('/search-articles/:keyword',ArticleController.searchArticles);
-router.get('/most-visited-articles',ArticleController.getMostVisitedArticles);
->>>>>>> c22bd6ad20fc489706de1cf876d59111a4630e9a
 router.get('/article/:title',ArticleController.getArticle);
 router.get('/articles/:asideArticles',ArticleController.getArticlesOfAside);
 router.put('/article/:title',ArticleController.updateArticle);
