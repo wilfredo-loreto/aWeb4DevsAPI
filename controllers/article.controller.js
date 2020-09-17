@@ -1,16 +1,40 @@
-const Article = require('../models/article.model')
+const Article = require("../models/article.model");
 
-function getArticle(req,res){ 
-    let articleTitle = req.params.title.toLowerCase();
-    
-    Article.findOne({title: articleTitle}, (err, article) => {
+function getArticle(req, res) {
+  let articleTitle = req.params.title.toLowerCase();
 
-        if (err) return res.status(500).send({message: `error nr: ${err}`})
+  Article.findOne({ title: articleTitle }, (err, article) => {
+    if (err) return res.status(500).send({ message: `error nr: ${err}` });
 
-        if (!article) return (res.status(404)).send({message: `the article doesn't exists`})
+    if (!article)
+      return res.status(404).send({ message: `the article doesn't exists` });
 
-        res.status(200).send({article})
-    })
+    res.status(200).send({ article });
+  });
+}
+
+function getArticlesOfAside(req, res) {
+  var tagsArray = req.params.asideArticles.split("+");
+  var result = [];
+  var band = true;
+  Article.find({}, { _id: 0 }, (err, articles) => {
+    for (let article of articles){
+      band = true;
+      for (let i of tagsArray) {
+        if (band) {
+          for (let j of article.tags[0]) {
+            if (i == j && band) {
+              result.push(article.title);
+              band = false;
+            }
+          }
+        }
+      }
+    }
+    if (err) return res.status(500).send({ message: `error nr: ${err}` });
+    if (!result) return res.status(404).send({ message: `No articles` });
+    res.status(200).send({result});
+});
 }
 
 function getArticles(req,res){
@@ -49,30 +73,51 @@ function getMostVisitedArticles(req,res){
         res.status(200).send({articles})
     }).limit(5).sort({visits: -1})
 }
-function updateArticle(req,res){
+function getMostVisitedArticles(req, res) {
+  Article.find(
+    {},
+    { title: 1, summary: 1, date: 1, visits: 1, img: 1 },
+    (err, articles) => {
+      if (err) return res.status(500).send({ message: `error nr: ${err}` });
 
-    let articleTitle = req.params.title
-    let update= req.body
+      if (!articles) return res.status(404).send({ message: `No articles` });
 
-    Article.findOneAndUpdate({title: articleTitle}, update, (err, articleUpdated) => {
-
-        if (err) return res.status(500).send({message: `Error updating article ${err}`})
-
-        res.status(200).send({article: articleUpdated})
-    })
+      res.status(200).send({ articles });
+    }
+  )
+    .limit(5)
+    .sort({ visits: -1 });
 }
-function deleteArticle(req,res){
 
-    let articleTitle = req.params.title
+function updateArticle(req, res) {
+  let articleTitle = req.params.title;
+  let update = req.body;
 
-    Article.findOne({title: articleTitle} , (err, article) => {
+  Article.findOneAndUpdate(
+    { title: articleTitle },
+    update,
+    (err, articleUpdated) => {
+      if (err)
+        return res
+          .status(500)
+          .send({ message: `Error updating article ${err}` });
 
-        article.remove(err =>{
-            
-            if (err) return res.status(500).send({message: `Error deleting article: ${err}`})
-            res.status(200).send({message:"The article has been deleted"});
-        })
-    })
+      res.status(200).send({ article: articleUpdated });
+    }
+  );
+}
+function deleteArticle(req, res) {
+  let articleTitle = req.params.title;
+
+  Article.findOne({ title: articleTitle }, (err, article) => {
+    article.remove((err) => {
+      if (err)
+        return res
+          .status(500)
+          .send({ message: `Error deleting article: ${err}` });
+      res.status(200).send({ message: "The article has been deleted" });
+    });
+  });
 }
 
 function saveArticle(req,res){
@@ -88,22 +133,38 @@ function saveArticle(req,res){
     article.visits=req.body.visits
     article.references=req.body.references
         
+  article.save((err, savedArticle) => {
+    if (err)
+      res.status(500).send({ message: `Error saving the article ${err}` });
 
-    article.save((err, savedArticle) => {
-
-        if (err) res.status(500).send({message: `Error saving the article ${err}`})
-
-        res.status(200).send({article: savedArticle})
-
-    })
+    res.status(200).send({ article: savedArticle });
+  });
 }
 
-module.exports={
-    getArticle,
-    getArticles,
-    updateArticle,
-    deleteArticle,
-    saveArticle,
-    getMostVisitedArticles,
-    searchArticles
+function getThreeArticles(req, res) {
+  Article.find(
+    {},
+    { title: 1, summary: 1, img: 1,date:1,_id:0},
+    (err, articles) => {
+      if (err) return res.status(500).send({ message: `error nr: ${err}` });
+
+      if (!articles) return res.status(404).send({ message: `No articles` });
+
+      res.status(200).send({ articles });
+    }
+  )
+    .limit(3)
+    .sort({ date: -1 });
 }
+
+module.exports = {
+  getArticle,
+  getArticles,
+  getThreeArticles,
+  getArticlesOfAside,
+  updateArticle,
+  deleteArticle,
+  saveArticle,
+  searchArticles,
+  getMostVisitedArticles
+};

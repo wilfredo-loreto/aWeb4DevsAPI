@@ -7,6 +7,7 @@ const articleSchema = Schema(
     title: String,
     type: String,
     summary: String,
+    type:String,
     img: String,
     date: Date,
     tags: Array,
