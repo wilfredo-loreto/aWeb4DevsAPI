@@ -22,16 +22,27 @@ function getTechs(req,res){
         res.status(200).send({techs})
     })
 }
+function getTechsCarousel(req,res){
+    let techType = req.params.type;
+    Tech.find({type: techType},{title: 1, img:1,_id:0}, (err, techs)=>{
+
+        if (err) return (res.status(500)).send({message: `error nr: ${err}`})
+
+        if (!techs) return (res.status(404)).send({message: `No techs`})
+
+        res.status(200).send({techs})
+    })
+}
 function updateTech(req,res){
 
     let techTitle = req.params.title
     let update= req.body
 
-    Tech.findOneAndUpdate({title: techTitle}, update, (err, articleUpdated) => {
+    Tech.findOneAndUpdate({title: techTitle}, update, (err, techUpdated) => {
 
         if (err) return res.status(500).send({message: `Error updating tech ${err}`})
 
-        res.status(200).send({tech: articleUpdated})
+        res.status(200).send({tech: techUpdated})
     })
 }
 function deleteTech(req,res){
@@ -69,10 +80,28 @@ function saveTech(req,res){
     })
 }
 
+function getTwoTechs(req, res) {
+    Tech.find(
+      {},
+      { title: 1, img: 1,_id:0 },
+      (err, techs) => {
+        if (err) return res.status(500).send({ message: `error nr: ${err}` });
+  
+        if (!techs) return res.status(404).send({ message: `No Techs` });
+  
+        res.status(200).send({ techs });
+      }
+    )
+      .limit(2)
+      .sort({ date: -1 });
+  }
+
 module.exports={
     getTech,
     getTechs,
+    getTwoTechs,
+    getTechsCarousel,
     updateTech,
     deleteTech,
-    saveTech
+    saveTech,
 }

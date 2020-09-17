@@ -24,7 +24,7 @@ function getArticlesOfAside(req, res) {
         if (band) {
           for (let j of article.tags[0]) {
             if (i == j && band) {
-              result.push(article);
+              result.push(article.title);
               band = false;
             }
           }
@@ -33,7 +33,7 @@ function getArticlesOfAside(req, res) {
     }
     if (err) return res.status(500).send({ message: `error nr: ${err}` });
     if (!result) return res.status(404).send({ message: `No articles` });
-    res.status(200).send({ result });
+    res.status(200).send({result});
 });
 }
 function getArticles(req, res) {
@@ -64,6 +64,7 @@ function getMostVisitedArticles(req, res) {
     .limit(5)
     .sort({ visits: -1 });
 }
+
 function updateArticle(req, res) {
   let articleTitle = req.params.title;
   let update = req.body;
@@ -113,12 +114,29 @@ function saveArticle(req, res) {
   });
 }
 
+function getThreeArticles(req, res) {
+  Article.find(
+    {},
+    { title: 1, summary: 1, img: 1,date:1,_id:0},
+    (err, articles) => {
+      if (err) return res.status(500).send({ message: `error nr: ${err}` });
+
+      if (!articles) return res.status(404).send({ message: `No articles` });
+
+      res.status(200).send({ articles });
+    }
+  )
+    .limit(3)
+    .sort({ date: -1 });
+}
+
 module.exports = {
   getArticle,
   getArticles,
+  getThreeArticles,
   getArticlesOfAside,
   updateArticle,
   deleteArticle,
   saveArticle,
-  getMostVisitedArticles,
+  getMostVisitedArticles
 };
