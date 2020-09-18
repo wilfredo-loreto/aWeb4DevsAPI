@@ -19,15 +19,17 @@ var multipart = require('connect-multiparty');
  * 
  * @apiDescription Get all the articles storeds in the DB (to be showed in aweb4devs.com/articles)
  * 
+ * @apiParam {String} title The article title
+ * 
  * @apiSuccess {String} title The article's title
  * @apiSuccess {String} type Front-end / Back-end / Mixed (Both)
  * @apiSuccess {String} summary The article's title
  * @apiSuccess {String} img The Route of the image saved in the hosting
  * @apiSuccess {Date} date Release date of the article
- * @apiSuccess {Array} tags 2xN Matrix which have 2 Types of tags. Techonolgies[0] and Keywords[1] . Needed for aside and searchbar  
- * @apiSuccess {Array} content An Array of paragraphs and images to create an article
+ * @apiSuccess {Matrix[String,String]} tags 2xN Matrix which have 2 Types of tags. Techonolgies[0] and Keywords[1] . Needed for aside and searchbar  
+ * @apiSuccess {Array[String]} content An Array of paragraphs and images to create an article
  * @apiSuccess {Number} visits The number of article visits
- * @apiSuccess {Array} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String). 
+ * @apiSuccess {Matrix[String,String]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String). 
  */
 router.get('/articles',ArticleController.getArticles);
 
