@@ -179,4 +179,22 @@ router.get('/homepage/carousel/:type',TechController.getTechsCarousel);
  
 router.get('/homepage/news/most-visited-articles',ArticleController.getMostVisitedsArticles);
 
+/**
+ * @api {get} /search-articles/:keyword Gets Results from searchbar
+ * @apiVersion 0.1.0
+ * @apiName searchArticles
+ * @apiGroup Article
+ * 
+ * @apiDescription Gets all the articles based on tags matrix (techonologies and keywords)
+ * 
+ * @apiParam {String} keyword One or more keywords for searching articles and techs (separateds by "+")
+ * 
+ * @apiSuccess {String} title The article's title
+ * @apiSuccess {String} summary The article's title
+ * @apiSuccess {Array[Array[string]]} tags 2xN Matrix which have 2 Types of tags. Techonolgies[0] and Keywords[1] . Needed for aside and searchbar  
+*/
+ 
+router.get('/search-articles/:keyword',ArticleController.searchArticles);
+
+
 module.exports = router;
