@@ -42,10 +42,10 @@ router.get('/articles',ArticleController.getArticles);
  * @apiSuccess {String} summary The article's title
  * @apiSuccess {String} img The Route of the image saved in the hosting
  * @apiSuccess {Date} date Release date of the article
- * @apiSuccess {Matrix[String,String]} tags 2xN Matrix which have 2 Types of tags. Techonolgies[0] and Keywords[1] . Needed for aside and searchbar  
+ * @apiSuccess {Array[Array[string]]} tags 2xN Matrix which have 2 Types of tags. Techonolgies[0] and Keywords[1] . Needed for aside and searchbar  
  * @apiSuccess {Array[String]} content An Array of paragraphs and routes of images to create an article
  * @apiSuccess {Number} visits The number of article visits
- * @apiSuccess {Matrix[String,String]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String). 
+ * @apiSuccess {Array[Array[string]]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String). 
 */
  
 router.get('/article/:title',ArticleController.getArticle);
@@ -80,10 +80,10 @@ router.get('/article/aside/:asideArticles',ArticleController.getAsideArticles);
  * @apiSuccess {String} summary The article's title
  * @apiSuccess {String} img The Route of the image saved in the hosting
  * @apiSuccess {Date} date Release date of the article
- * @apiSuccess {Matrix[String,String]} tags 2xN Matrix which have 2 Types of tags. Techonolgies[0] and Keywords[1] . Needed for aside and searchbar  
+ * @apiSuccess {Array[Array[string]]} tags 2xN Matrix which have 2 Types of tags. Techonolgies[0] and Keywords[1] . Needed for aside and searchbar  
  * @apiSuccess {Array[String]} content An Array of paragraphs and routes of images to create an article
  * @apiSuccess {Number} visits The number of article visits
- * @apiSuccess {Matrix[String,String]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String). 
+ * @apiSuccess {Array[Array[string]]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String). 
 */
  
 router.put('/article/:title',ArticleController.updateArticle);
@@ -101,10 +101,10 @@ router.put('/article/:title',ArticleController.updateArticle);
  * @apiSuccess {String} summary The article's title
  * @apiSuccess {String} img The Route of the image saved in the hosting
  * @apiSuccess {Date} date Release date of the article
- * @apiSuccess {Matrix[String,String]} tags 2xN Matrix which have 2 Types of tags. Techonolgies[0] and Keywords[1] . Needed for aside and searchbar  
+ * @apiSuccess {Array[Array[string]]} tags 2xN Matrix which have 2 Types of tags. Techonolgies[0] and Keywords[1] . Needed for aside and searchbar  
  * @apiSuccess {Array[String]} content An Array of paragraphs and routes of images to create an article
  * @apiSuccess {Number} visits The number of article visits
- * @apiSuccess {Matrix[String,String]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String). 
+ * @apiSuccess {Array[Array[string]]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String). 
 */
  
 router.post('/save-article',ArticleController.saveArticle);
@@ -124,10 +124,10 @@ router.post('/save-article',ArticleController.saveArticle);
  * @apiSuccess {String} summary The article's title
  * @apiSuccess {String} img The Route of the image saved in the hosting
  * @apiSuccess {Date} date Release date of the article
- * @apiSuccess {Matrix[String,String]} tags 2xN Matrix which have 2 Types of tags. Techonolgies[0] and Keywords[1] . Needed for aside and searchbar  
+ * @apiSuccess {Array[Array[string]]} tags 2xN Matrix which have 2 Types of tags. Techonolgies[0] and Keywords[1] . Needed for aside and searchbar  
  * @apiSuccess {Array[String]} content An Array of paragraphs and routes of images to create an article
  * @apiSuccess {Number} visits The number of article visits
- * @apiSuccess {Matrix[String,String]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String). 
+ * @apiSuccess {Array[Array[string]]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String). 
 */
  
 router.delete('/delete-article',ArticleController.deleteArticle);
