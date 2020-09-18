@@ -1,14 +1,15 @@
 const Article = require("../models/article.model");
 
+
 function getArticle(req, res) {
   let articleTitle = req.params.title.toLowerCase();
-
+  
   Article.findOne({ title: articleTitle }, (err, article) => {
     if (err) return res.status(500).send({ message: `error nr: ${err}` });
 
     if (!article)
-      return res.status(404).send({ message: `the article doesn't exists` });
-
+    return res.status(404).send({ message: `the article doesn't exists` });
+    
     res.status(200).send({ article });
   });
 }
@@ -34,7 +35,7 @@ function getArticlesOfAside(req, res) {
     if (err) return res.status(500).send({ message: `error nr: ${err}` });
     if (!result) return res.status(404).send({ message: `No articles` });
     res.status(200).send({result});
-});
+  });
 }
 
 function getArticles(req,res){
