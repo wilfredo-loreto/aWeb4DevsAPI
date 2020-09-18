@@ -23,17 +23,7 @@ function getTechs(req,res){
         res.status(200).send({techs})
     })
 }
-function getTechsCarousel(req,res){
-    let techType = req.params.type;
-    Tech.find({type: techType},{title: 1, img:1,_id:0}, (err, techs)=>{
 
-        if (err) return (res.status(500)).send({message: `error nr: ${err}`})
-
-        if (!techs) return (res.status(404)).send({message: `No techs`})
-
-        res.status(200).send({techs})
-    })
-}
 
 function asideTechs(req,res){
     let techType  = req.params.type;
@@ -64,7 +54,7 @@ function asideTechs(req,res){
 function carouselTechs(req,res){
     let techType = req.params.type;
 
-    Tech.find({type: techType},{img: 1, _id: 0}, (err, techs)=>{
+    Tech.find({type: techType},{title: 1, img: 1, _id: 0}, (err, techs)=>{
 
         if (err) return (res.status(500)).send({message: `error nr: ${err}`})
 
@@ -73,9 +63,6 @@ function carouselTechs(req,res){
         res.status(200).send({techs})
     }).sort({date: -1})
 }
-
-
-
 
 function searchTechs(req,res){
     let keyWord = req.params.keyword.toLowerCase();
@@ -159,7 +146,6 @@ module.exports={
     getTech,
     getTechs,
     getTwoTechs,
-    getTechsCarousel,
     updateTech,
     deleteTech,
     saveTech,
