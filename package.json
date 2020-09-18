@@ -1,7 +1,7 @@
 {
-  "name": "api",
+  "name": "aweb4devsapi",
   "version": "1.0.0",
-  "description": "aWeb4Devs API",
+  "description": "aWeb4Devs API to make our website totally dynamic and CRUD operations for updating it week-by-week",
   "apidoc":{
     "name":"aWeb4Devs",
     "title":"aweb4devs.com"
