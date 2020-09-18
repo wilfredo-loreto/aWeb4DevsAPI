@@ -23,17 +23,7 @@ function getTechs(req,res){
         res.status(200).send({techs})
     })
 }
-function getTechsCarousel(req,res){
-    let techType = req.params.type;
-    Tech.find({type: techType},{title: 1, img:1,_id:0}, (err, techs)=>{
 
-        if (err) return (res.status(500)).send({message: `error nr: ${err}`})
-
-        if (!techs) return (res.status(404)).send({message: `No techs`})
-
-        res.status(200).send({techs})
-    })
-}
 
 function asideTechs(req,res){
     let techType  = req.params.type;
@@ -156,7 +146,6 @@ module.exports={
     getTech,
     getTechs,
     getTwoTechs,
-    getTechsCarousel,
     updateTech,
     deleteTech,
     saveTech,

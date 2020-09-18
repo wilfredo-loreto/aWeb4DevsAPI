@@ -452,6 +452,57 @@ define({ "api": [
     "groupTitle": "Article"
   },
   {
+    "type": "get",
+    "url": "/search-articles/:keyword",
+    "title": "Gets Results from searchbar",
+    "version": "0.1.0",
+    "name": "searchArticles",
+    "group": "Article",
+    "description": "<p>Gets all the articles based on tags matrix (techonologies and keywords)</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "keyword",
+            "description": "<p>One or more keywords for searching articles and techs (separateds by &quot;+&quot;)</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>The article's title</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "summary",
+            "description": "<p>The article's title</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array[Array[string]]",
+            "optional": false,
+            "field": "tags",
+            "description": "<p>2xN Matrix which have 2 Types of tags. Techonolgies[0] and Keywords[1] . Needed for aside and searchbar</p>"
+          }
+        ]
+      }
+    },
+    "filename": "routes/routes.js",
+    "groupTitle": "Article"
+  },
+  {
     "type": "put",
     "url": "/article/:title",
     "title": "Updates an article",
@@ -574,50 +625,6 @@ define({ "api": [
             "optional": false,
             "field": "title",
             "description": "<p>The tech's title</p>"
-          }
-        ]
-      }
-    },
-    "filename": "routes/routes.js",
-    "groupTitle": "Tech"
-  },
-  {
-    "type": "get",
-    "url": "/carousel-techs/:type",
-    "title": "Gets techs for carousel",
-    "version": "0.1.0",
-    "name": "carouselTechs",
-    "group": "Tech",
-    "description": "<p>Gets techs for carousel based on type</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "type",
-            "description": "<p>The tech type</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "title",
-            "description": "<p>The tech's title</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "img",
-            "description": "<p>The Route of the image saved in the hosting</p>"
           }
         ]
       }
