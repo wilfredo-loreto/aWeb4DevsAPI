@@ -74,9 +74,6 @@ function carouselTechs(req,res){
     }).sort({date: -1})
 }
 
-
-
-
 function searchTechs(req,res){
     let keyWord = req.params.keyword.toLowerCase();
 

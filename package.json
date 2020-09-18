@@ -2,6 +2,10 @@
   "name": "api",
   "version": "1.0.0",
   "description": "aWeb4Devs API",
+  "apidoc":{
+    "name":"aWeb4Devs",
+    "title":"aweb4devs.com"
+  },
   "main": "index.js",
   "dependencies": {
     "body-parser": "^1.19.0",
