@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 var app = require('./app');
 var port = 3700;
-var uri = 'mongodb+srv://wilfredo:yzz3rvay6@cluster0.gqdek.mongodb.net/prueba1?retryWrites=true&w=majority';
+var uri = 'mongodb+srv://wilfredo:aweb4devs19992020@cluster0.gqdek.mongodb.net/prueba1?retryWrites=true&w=majority';
 var options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
