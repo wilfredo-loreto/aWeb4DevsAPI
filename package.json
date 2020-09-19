@@ -6,7 +6,7 @@
     "name":"aWeb4Devs",
     "title":"aweb4devs.com"
   },
-  "main": "index.js",
+  "main": "node index.js",
   "dependencies": {
     "body-parser": "^1.19.0",
     "connect-multiparty": "^2.2.0",
