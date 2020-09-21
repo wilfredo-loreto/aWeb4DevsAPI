@@ -9,7 +9,7 @@ const articleSchema = Schema(
     summary: String,
     img: String,
     date: Date,
-    tags: Array,
+    tags: Object,
     content: Array,
     visits: Number,
     references: Array,

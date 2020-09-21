@@ -23,7 +23,7 @@ function getAsideArticles(req, res) {
       band = true;
       for (let i of tagsArray) {
         if (band) {
-          for (let j of article.tags[0]) {
+          for (let j of article.tags.technologies) {
             if (i == j && band) {
               result.push(article.title);
               band = false;
