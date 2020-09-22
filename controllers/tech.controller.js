@@ -23,6 +23,17 @@ function getTechs(req,res){
         res.status(200).send({techs})
     })
 }
+function getTechsAccordionParent(req,res){
+    let techType = req.params.type;
+    Tech.find({type: techType,parent:""},{title: 1, summary: 1, logo: 1,_id:0}, (err, techs)=>{
+
+        if (err) return (res.status(500)).send({message: `error nr: ${err}`})
+
+        if (!techs) return (res.status(404)).send({message: `No techs`})
+
+        res.status(200).send({techs})
+    })
+}
 
 
 function asideTechs(req,res){
@@ -145,6 +156,7 @@ function getTwoTechs(req, res) {
 module.exports={
     getTech,
     getTechs,
+    getTechsAccordionParent,
     getTwoTechs,
     updateTech,
     deleteTech,
