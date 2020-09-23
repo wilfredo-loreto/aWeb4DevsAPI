@@ -147,22 +147,6 @@ router.delete('/delete-article',ArticleController.deleteArticle);
  */
 router.get('/techs/:type',TechController.getTechs);
 
-/**
- * @api {get} /techs/accordion/:type Gets all the techs based on type
- * @apiVersion 0.1.0
- * @apiName getTechs
- * @apiGroup Tech
- * 
- * @apiDescription Gets all the techs based on type and parent:'' and returns title, summary,logo
- * 
- * @apiParam {String} type The tech type (Front-end/Back-end)
- * 
- * @apiSuccess {String} title The tech's title
- * @apiSuccess {String} summary The tech's summary
- * @apiSuccess {String} logo The Route of the logo saved in the hosting
- */
-
-router.get('/techs/accordion/:type',TechController.getTechsAccordionParent);
 
 
 /**
