@@ -13,7 +13,7 @@ const techSchema = Schema(
     tags: Array,
     content: Array,
     references: Array,
-    parent: Array
+    parent: String
   },
   {
     collection: "techs",

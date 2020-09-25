@@ -147,6 +147,8 @@ router.delete('/delete-article',ArticleController.deleteArticle);
  */
 router.get('/techs/:type',TechController.getTechs);
 
+
+
 /**
  * @api {get} /aside-techs/:type Gets all title Techs 
  * @apiVersion 0.1.0
