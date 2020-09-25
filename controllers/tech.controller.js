@@ -54,9 +54,8 @@ function asideTechs(req,res){
 }
 
 function carouselTechs(req,res){
-    let techType = req.params.type;
 
-    Tech.find({type: techType},{title: 1, img: 1, _id: 0}, (err, techs)=>{
+    Tech.find({},{title: 1, img: 1, _id: 0}, (err, techs)=>{
 
         if (err) return (res.status(500)).send({message: `error nr: ${err}`})
 
