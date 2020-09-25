@@ -65,9 +65,10 @@ function carouselTechs(req,res){
 }
 
 function searchTechs(req,res){
-    let keyWord = req.params.keyword.toLowerCase();
 
-    Tech.find({tags: keyWord},{title: 1, summary: 1, tags: 1, _id: 0}, (err, techs) => {
+    let keyWord = req.params.keyword.toLowerCase().split(" ");
+
+    Tech.find({tags:{$in: [keyWord[0],keyWord[1],keyWord[2],keyWord[3]]}},{title: 1, summary: 1, tags: 1, _id: 0}, (err, techs) => {
 
         if (err) return (res.status(500)).send({message: `error nr: ${err}`})
 

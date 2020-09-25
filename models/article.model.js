@@ -9,10 +9,10 @@ const articleSchema = Schema(
     summary: String,
     img: String,
     date: Date,
-    tags: Object,
+    technologies: Array,
+    tags: Array,
     content: Array,
     visits: Number,
-    references: Array,
   },
   {
     collection: "articles",
