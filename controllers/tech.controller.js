@@ -131,7 +131,7 @@ function saveTech(req,res){
 function getTwoTechs(req, res) {
     Tech.find(
       {},
-      { title: 1, img: 1,_id:0 },
+      { title: 1, img: 1,type:1,_id:0 },
       (err, techs) => {
         if (err) return res.status(500).send({ message: `error nr: ${err}` });
   
