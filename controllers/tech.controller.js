@@ -62,7 +62,7 @@ function carouselTechs(req,res){
         if (!techs) return (res.status(404)).send({message: `No techs`})
 
         res.status(200).send({techs})
-    }).sort({date: -1})
+    }).sort({type:-1,date: -1})
 }
 
 function searchTechs(req,res){
