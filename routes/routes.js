@@ -270,7 +270,7 @@ router.delete('/delete-tech:title',TechController.deleteTech);
 
 
 /**
- * @api {get} /homepage/3articles  Gets 3 recents articles
+ * @api {get} /homepage/news/3articles  Gets 3 recents articles
  * @apiVersion 0.1.0
  * @apiName getThreeArticles
  * @apiGroup Article
@@ -305,7 +305,7 @@ router.get('/homepage/news/3articles',ArticleController.getThreeArticles);
 router.get('/homepage/news/2techs',TechController.getTwoTechs);
 
 /**
- * @api {get} /carousel-techs/:type Gets techs for carousel 
+ * @api {get} /homepage/carousel/:type Gets techs for carousel 
  * @apiVersion 0.1.0
  * @apiName carouselTechs
  * @apiGroup Tech
@@ -317,7 +317,7 @@ router.get('/homepage/news/2techs',TechController.getTwoTechs);
  * @apiSuccess {String} title The tech's title
  * @apiSuccess {String} img The Route of the image saved in the hosting
  */
-router.get('/homepage/carousel/:type',TechController.carouselTechs);
+router.get('/homepage/carousel',TechController.carouselTechs);
 
 /**
  * @api {get} /homepage/news/most-visited-articles Gets the 5 most visited articles

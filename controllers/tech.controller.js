@@ -54,16 +54,15 @@ function asideTechs(req,res){
 }
 
 function carouselTechs(req,res){
-    let techType = req.params.type;
 
-    Tech.find({type: techType},{title: 1, img: 1, _id: 0}, (err, techs)=>{
+    Tech.find({},{title: 1, img: 1,type:1, _id: 0}, (err, techs)=>{
 
         if (err) return (res.status(500)).send({message: `error nr: ${err}`})
 
         if (!techs) return (res.status(404)).send({message: `No techs`})
 
         res.status(200).send({techs})
-    }).sort({date: -1})
+    }).sort({type:-1,date: -1})
 }
 
 function searchTechs(req,res){
@@ -132,7 +131,7 @@ function saveTech(req,res){
 function getTwoTechs(req, res) {
     Tech.find(
       {},
-      { title: 1, img: 1,_id:0 },
+      { title: 1, img: 1,type:1,_id:0 },
       (err, techs) => {
         if (err) return res.status(500).send({ message: `error nr: ${err}` });
   
