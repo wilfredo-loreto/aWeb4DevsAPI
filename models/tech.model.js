@@ -12,7 +12,6 @@ const techSchema = Schema(
     logo: String,
     tags: Array,
     content: Array,
-    references: Array,
     parent: String
   },
   {

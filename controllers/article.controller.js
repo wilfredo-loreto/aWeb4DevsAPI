@@ -39,14 +39,14 @@ function getAsideArticles(req, res) {
 }
 
 function getArticles(req,res){
-    Article.find({},{title: 1, summary: 1, date: 1, visits: 1, img: 1, _id: 0}, (err, articles)=>{
+    Article.find({},{title: 1, summary: 1, date: 1, technologies: 1, visits: 1, img: 1, _id: 0}, (err, articles)=>{
 
         if (err) return (res.status(500)).send({message: `error nr: ${err}`})
 
         if (!articles) return (res.status(404)).send({message: `No articles`})
 
         res.status(200).send({articles})
-    })
+    }).sort({ date: 1 })
 }
 
 function searchArticles(req,res){
