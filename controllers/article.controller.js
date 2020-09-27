@@ -46,7 +46,7 @@ function getArticles(req,res){
         if (!articles) return (res.status(404)).send({message: `No articles`})
 
         res.status(200).send({articles})
-    }).sort({ date: 1 })
+    }).sort({ date: -1 })
 }
 
 function searchArticles(req,res){
