@@ -40,8 +40,7 @@ function getAsideArticles(req, res) {
         }
       }
       if (err) return res.status(500).send({ message: `error nr: ${err}` });
-      if (!result)
-        return res.status(404).send({ message: `No related articles` });
+      if (!result) return res.status(404).send({ message: `No related articles` });
       res.status(200).send({ result });
     });
   });
