@@ -42,7 +42,7 @@ function asideTechs(req,res){
     })
     }else{
         
-    Tech.find({},{title: 1,paret:1, _id: 0}, (err, techs)=>{
+    Tech.find({},{title: 1,parent:1, _id: 0}, (err, techs)=>{
 
         if (err) return (res.status(500)).send({message: `error nr: ${err}`})
 
