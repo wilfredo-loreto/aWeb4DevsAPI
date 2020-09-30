@@ -61,7 +61,7 @@ router.get('/article/:title',ArticleController.getArticle);
  * @apiSuccess {String} title The article's title
 */
  
-router.get('/article/aside/:asideArticles',ArticleController.getAsideArticles);
+router.get('/article/aside/:title',ArticleController.getAsideArticles);
 
 /**
  * @api {put} /article/:title Updates an article
