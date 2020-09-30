@@ -40,7 +40,7 @@ function asideTechs(req,res){
 
         res.status(200).send({techs})
     })
-    .sort({parent:1})
+    .sort({parent:1,title:1})
     }else{
         
     Tech.find({},{title: 1,parent:1,type:1, _id: 0}, (err, techs)=>{
@@ -51,7 +51,7 @@ function asideTechs(req,res){
 
         res.status(200).send({techs})
     })
-    .sort({parent:1})
+    .sort({parent:1,title:1})
     }
 }
 
