@@ -50,6 +50,7 @@ function asideTechs(req,res){
 
         res.status(200).send({techs})
     })
+    .sort({parent:1})
     }
 }
 
