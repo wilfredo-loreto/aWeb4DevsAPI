@@ -128,7 +128,7 @@ router.post('/save-article',ArticleController.saveArticle);
  * @apiSuccess {Array[Array[string]]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String). 
 */
  
-router.delete('/delete-article',ArticleController.deleteArticle);
+router.delete('/delete-article/:title',ArticleController.deleteArticle);
 
 /**
  * @api {get} /techs/:type Gets all the techs based on type
@@ -266,7 +266,7 @@ router.post('/save-tech',TechController.saveTech);
  * @apiSuccess {Array[String]} content An Array of paragraphs and routes of images to create an tech
  * @apiSuccess {Array[Array[string]]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String). 
  */
-router.delete('/delete-tech:title',TechController.deleteTech);
+router.delete('/delete-tech/:title',TechController.deleteTech);
 
 
 /**

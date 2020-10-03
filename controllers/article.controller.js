@@ -120,10 +120,10 @@ function saveArticle(req,res){
     article.summary=req.body.summary
     article.img=req.body.img
     article.date=req.body.date
+    article.technologies=req.body.technologies
     article.tags=req.body.tags
     article.content=req.body.content
     article.visits=req.body.visits
-    article.references=req.body.references
         
   article.save((err, savedArticle) => {
     if (err)
