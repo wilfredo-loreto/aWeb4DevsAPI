@@ -132,7 +132,6 @@ function deleteArticle(req, res) {
   });
 }
 
-<<<<<<< HEAD
 function saveArticle(req,res){
     console.log(req.body)
     let article = new Article()
@@ -146,21 +145,6 @@ function saveArticle(req,res){
     article.content=req.body.content
     article.visits=req.body.visits
         
-=======
-function saveArticle(req, res) {
-  console.log(req.body);
-  let article = new Article();
-  article.title = req.body.title;
-  article.type = req.body.type;
-  article.summary = req.body.summary;
-  article.img = req.body.img;
-  article.date = req.body.date;
-  article.tags = req.body.tags;
-  article.content = req.body.content;
-  article.visits = req.body.visits;
-  article.references = req.body.references;
-
->>>>>>> 70aecd8dc1c537fb4e913c3ef5d2088fc282ddaa
   article.save((err, savedArticle) => {
     if (err)
       res.status(500).send({ message: `Error saving the article ${err}` });
