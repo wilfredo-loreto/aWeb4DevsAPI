@@ -32,7 +32,7 @@ function asideTechs(req,res){
 
     if(techType  == "frontend" || techType  == "backend"){
 
-    Tech.find({type: techType},{title: 1, _id: 0}, (err, techs)=>{
+    Tech.find({type: techType},{title: 1,parent:1,type:1, _id: 0}, (err, techs)=>{
 
         if (err) return (res.status(500)).send({message: `error nr: ${err}`})
 
@@ -40,9 +40,10 @@ function asideTechs(req,res){
 
         res.status(200).send({techs})
     })
+    .sort({parent:1,title:1})
     }else{
         
-    Tech.find({},{title: 1, _id: 0}, (err, techs)=>{
+    Tech.find({},{title: 1,parent:1,type:1, _id: 0}, (err, techs)=>{
 
         if (err) return (res.status(500)).send({message: `error nr: ${err}`})
 
@@ -50,6 +51,7 @@ function asideTechs(req,res){
 
         res.status(200).send({techs})
     })
+    .sort({parent:1,title:1})
     }
 }
 
