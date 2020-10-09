@@ -165,7 +165,7 @@ function saveTech(req,res){
     tech.logo=req.body.logo
     tech.tags=req.body.tags
     tech.content=req.body.content
-    
+    tech.parent=req.body.parent
         
     tech.save((err, savedTech) => {
 

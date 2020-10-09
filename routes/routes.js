@@ -135,10 +135,10 @@ router.post("/save-article",upload.array("images"), ArticleController.saveArticl
  * @apiSuccess {Array[Array[string]]} tags 2xN Matrix which have 2 Types of tags. Techonolgies[0] and Keywords[1] . Needed for aside and searchbar
  * @apiSuccess {Array[String]} content An Array of paragraphs and routes of images to create an article
  * @apiSuccess {Number} visits The number of article visits
- * @apiSuccess {Array[Array[string]]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String).
- */
-
-router.delete("/delete-article", ArticleController.deleteArticle);
+ * @apiSuccess {Array[Array[string]]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String). 
+*/
+ 
+router.delete('/delete-article/:title',ArticleController.deleteArticle);
 
 /**
  * @api {get} /techs/:type Gets all the techs based on type
@@ -273,7 +273,8 @@ router.post("/save-tech",upload.array("images"), TechController.saveTech);
  * @apiSuccess {Array[String]} content An Array of paragraphs and routes of images to create an tech
  * @apiSuccess {Array[Array[string]]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String).
  */
-router.delete("/delete-tech:title", TechController.deleteTech);
+router.delete('/delete-tech/:title',TechController.deleteTech);
+
 
 /**
  * @api {get} /homepage/news/3articles  Gets 3 recents articles
