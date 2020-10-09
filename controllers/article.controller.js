@@ -1,5 +1,55 @@
 const Article = require("../models/article.model");
-const articleModel = require("../models/article.model");
+const fs = require("fs");
+var FtpDeploy = require("ftp-deploy");
+
+const pathToDir = "./uploads"
+const removeDir = function(path) {
+  if (fs.existsSync(path)) {
+    const files = fs.readdirSync(path)
+    
+    if (files.length > 0) {
+      files.forEach(function(filename) {
+     
+        
+          fs.unlinkSync(path + "/" + filename)
+       
+      })
+    } else {
+      console.log("No files found in the directory.")
+    }
+  } else {
+    console.log("Directory path not found.")
+  }
+}
+var ftpDeploy = new FtpDeploy();
+var config = {
+
+  user: "korvus@korvusweb.com",
+  password: "nuestra 3mpresa k0rvus",
+  host: "gator4228.hostgator.com",
+  port: 21,
+  localRoot: "./uploads",
+  remoteRoot: "/reactloreto.korvusweb.com/static/img",
+  include: ["*", ".*"],
+  exclude: [
+    "dist/**/*.map",
+    "node_modules/**",
+    "node_modules/**/.*",
+    "controllers/**/.*",
+    "doc/**/.*",
+    "models/**/.*",
+    "routes/**/.*",
+  ],
+  deleteRemote: false,
+  forcePasv: true,
+};
+const multer = require("multer");
+var storage = multer.diskStorage({
+  destination: "./uploads",
+  filename: function (req, file, cb) {
+    cb(null, req.body.title.split(" ").join("-") + "-" + file.originalname);
+  },
+});
 
 function getArticle(req, res) {
   let articleTitle = req.params.title.toLowerCase();
@@ -143,12 +193,23 @@ function saveArticle(req, res) {
   article.tags = req.body.tags;
   article.content = req.body.content;
   article.visits = req.body.visits;
-  article.references = req.body.references;
 
   article.save((err, savedArticle) => {
     if (err)
       res.status(500).send({ message: `Error saving the article ${err}` });
 
+      if (req.files) {
+        ftpDeploy.deploy(config, function (err, res) {
+          if (err) console.log(err);
+          else {
+            removeDir(pathToDir)
+            console.log("finished:", res);
+          }
+        });
+        
+      } else {
+        return res.status(500).send({ message: "Error uploading the Files" });
+      }
     res.status(200).send({ article: savedArticle });
   });
 }

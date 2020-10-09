@@ -1,4 +1,50 @@
 const Tech = require('../models/tech.model')
+const fs = require("fs");
+var FtpDeploy = require("ftp-deploy");
+
+const pathToDir = "./uploads"
+const removeDir = function(path) {
+  if (fs.existsSync(path)) {
+    const files = fs.readdirSync(path)
+    
+    if (files.length > 0) {
+      files.forEach(function(filename) {
+     
+        
+          fs.unlinkSync(path + "/" + filename)
+       
+      })
+    } else {
+      console.log("No files found in the directory.")
+    }
+  } else {
+    console.log("Directory path not found.")
+  }
+}
+var ftpDeploy = new FtpDeploy();
+var config = {
+
+  user: "korvus@korvusweb.com",
+  password: "nuestra 3mpresa k0rvus",
+  host: "gator4228.hostgator.com",
+  port: 21,
+  localRoot: "./uploads",
+  remoteRoot: "/reactloreto.korvusweb.com/static/img",
+  include: ["*", ".*"],
+  exclude: [
+    "dist/**/*.map",
+    "node_modules/**",
+    "node_modules/**/.*",
+    "controllers/**/.*",
+    "doc/**/.*",
+    "models/**/.*",
+    "routes/**/.*",
+  ],
+  deleteRemote: false,
+  forcePasv: true,
+};
+
+
 
 function getTech(req,res){ 
     let techTitle = req.params.title;
@@ -119,12 +165,23 @@ function saveTech(req,res){
     tech.logo=req.body.logo
     tech.tags=req.body.tags
     tech.content=req.body.content
-    tech.references=req.body.references
+    
         
     tech.save((err, savedTech) => {
 
         if (err) res.status(500).send({message: `Error saving the tech ${err}`})
-
+        if (req.files) {
+            ftpDeploy.deploy(config, function (err, res) {
+              if (err) console.log(err);
+              else {
+                removeDir(pathToDir)
+                console.log("finished:", res);
+              }
+            });
+            
+          } else {
+            return res.status(500).send({ message: "error Uploading Files to Hosting. Need to use Filezilla" });
+          }
         res.status(200).send({tech: savedTech})
 
     })

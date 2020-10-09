@@ -2,29 +2,9 @@
 
 // IMPORTS REQUIREDS
 var express = require("express");
-var FtpDeploy = require("ftp-deploy");
-const fs = require("fs");
-var ftpDeploy = new FtpDeploy();
-var config = {
-  user: "korvus@korvusweb.com",
-  password: "nuestra 3mpresa k0rvus",
-  host: "gator4228.hostgator.com",
-  port: 21,
-  localRoot: "./uploads",
-  remoteRoot: "/reactloreto.korvusweb.com/static/img",
-  include: ["*", ".*"],
-  exclude: [
-    "dist/**/*.map",
-    "node_modules/**",
-    "node_modules/**/.*",
-    "controllers/**/.*",
-    "doc/**/.*",
-    "models/**/.*",
-    "routes/**/.*",
-  ],
-  deleteRemote: false,
-  forcePasv: true,
-};
+
+
+
 const multer = require("multer");
 var storage = multer.diskStorage({
   destination: "./uploads",
@@ -32,9 +12,9 @@ var storage = multer.diskStorage({
     cb(null, req.body.title.split(" ").join("-") + "-" + file.originalname);
   },
 });
+const upload = multer({ storage: storage });
 var ArticleController = require("../controllers/article.controller");
 var TechController = require("../controllers/tech.controller");
-const upload = multer({ storage: storage });
 var router = express.Router();
 
 // CRUD ROUTES
@@ -135,7 +115,7 @@ router.put("/article/:title", ArticleController.updateArticle);
  * @apiSuccess {Array[Array[string]]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String).
  */
 
-router.post("/save-article", ArticleController.saveArticle);
+router.post("/save-article",upload.array("images"), ArticleController.saveArticle);
 
 /**
  * @api {delete} /delete-article Deletes an Article
@@ -271,7 +251,7 @@ router.put("/tech/:title", TechController.updateTech);
  * @apiSuccess {Array[String]} content An Array of paragraphs and routes of images to create an tech
  * @apiSuccess {Array[Array[string]]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String).
  */
-router.post("/save-tech", TechController.saveTech);
+router.post("/save-tech",upload.array("images"), TechController.saveTech);
 
 /**
  * @api {get} /delete-tech:title Delete an tech
@@ -379,23 +359,5 @@ router.get(
  */
 
 router.get("/search-articles/:keyword", ArticleController.searchArticles);
-
-router.post("/save-image", upload.array("imagenm"), (req, res) => {
-  if (req.files) {
-    ftpDeploy.deploy(config, function (err, res) {
-      if (err) console.log(err);
-      else {
-        fs.unlink('./../uploads', (err) => {
-          if (err) throw err;
-          console.log('successfully deleted /tmp/hello');
-        });
-        console.log("finished:", res);
-      }
-    });
-    return res.status(200).send({ message: "Good Upload" });
-  } else {
-    return res.status(500).send({ message: "error F" });
-  }
-});
 
 module.exports = router;
