@@ -119,7 +119,7 @@ function updateArticle(req, res) {
   );
 }
 function deleteArticle(req, res) {
-  let articleTitle = req.params.title;
+  let articleTitle = req.params.title; 
 
   Article.findOne({ title: articleTitle }, (err, article) => {
     article.remove((err) => {

@@ -2,24 +2,26 @@
   "name": "aweb4devsapi",
   "version": "1.0.0",
   "description": "aWeb4Devs API to make our website totally dynamic and CRUD operations for updating it week-by-week",
-  "apidoc":{
-    "name":"aWeb4Devs",
-    "title":"aweb4devs.com"
+  "apidoc": {
+    "name": "aWeb4Devs",
+    "title": "aweb4devs.com"
   },
   "main": "index.js",
   "dependencies": {
     "body-parser": "^1.19.0",
     "connect-multiparty": "^2.2.0",
     "express": "^4.17.1",
+    "ftp-deploy": "^2.3.7",
     "moment": "^2.27.0",
     "mongoose": "^5.10.3",
+    "multer": "^1.4.2",
     "node": "^12.16.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
   },
   "scripts": {
-    "start":"node index.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
