@@ -115,7 +115,7 @@ function saveTech(req,res){
     tech.type=req.body.type
     tech.summary=req.body.summary
     tech.img=req.body.img
-    tech.date=req.body.date
+    tech.date=new Date()
     tech.logo=req.body.logo
     tech.tags=req.body.tags
     tech.content=req.body.content

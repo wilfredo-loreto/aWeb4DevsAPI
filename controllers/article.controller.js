@@ -139,11 +139,11 @@ function saveArticle(req,res){
     article.type=req.body.type
     article.summary=req.body.summary
     article.img=req.body.img
-    article.date=req.body.date
+    article.date=new Date()
     article.technologies=req.body.technologies
     article.tags=req.body.tags
     article.content=req.body.content
-    article.visits=req.body.visits
+    article.visits=parseInt(Math.random() * (101 - 50) + 50)
         
   article.save((err, savedArticle) => {
     if (err)
