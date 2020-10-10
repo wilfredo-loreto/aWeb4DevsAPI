@@ -177,7 +177,7 @@ function deleteArticle(req, res) {
         return res
           .status(500)
           .send({ message: `Error deleting article: ${err}` });
-      res.status(200).send({ message: "The article has been deleted" });
+      res.status(200).send({ message: "deleted" });
     });
   });
 }

@@ -149,7 +149,7 @@ function deleteTech(req,res){
         tech.remove(err =>{
             
             if (err) return res.status(500).send({message: `Error deleting tech: ${err}`})
-            res.status(200).send({message:"The tech has been deleted"});
+            res.status(200).send({message:"deleted"});
         })
     })
 }
