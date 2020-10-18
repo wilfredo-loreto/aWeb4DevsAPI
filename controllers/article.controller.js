@@ -200,11 +200,11 @@ function saveArticle(req,res){
       res.status(500).send({ message: `Error saving the article ${err}` });
 
       if (req.files) {
-        ftpDeploy.deploy(config, function (err, res) {
-          if (err) console.log(err);
+        ftpDeploy.deploy(config, function (error, result) {
+          if (error) console.log(error);
           else {
             removeDir(pathToDir)
-            console.log("finished:", res);
+            console.log("finished:", result);
           }
         });
         
