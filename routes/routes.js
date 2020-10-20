@@ -361,6 +361,6 @@ router.get(
 
 router.get("/search-articles/:keyword", ArticleController.searchArticles);
 
-router.post("/hosting/save-images",upload.array("images"), FtpController.saveImage);
+router.post("/hosting/save-images",upload.array("images"), FtpController.saveImage); 
 
 module.exports = router;
