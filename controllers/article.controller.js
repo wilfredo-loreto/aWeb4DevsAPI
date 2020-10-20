@@ -141,7 +141,7 @@ function saveArticle(req, res) {
   article.img = req.body.img;
   article.date = new Date();
   article.technologies = req.body.technologies;
-  article.tags = req.body.tags;
+  article.tags = req.body.tags; 
   article.content = req.body.content;
   article.visits = parseInt(Math.random() * (101 - 50) + 50);
 
