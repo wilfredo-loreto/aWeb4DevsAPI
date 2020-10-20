@@ -1,8 +1,5 @@
 const Tech = require("../models/tech.model");
 
-
-
-
 function getTech(req, res) {
   let techTitle = req.params.title;
   Tech.findOne({ title: techTitle }, (err, tech) => {

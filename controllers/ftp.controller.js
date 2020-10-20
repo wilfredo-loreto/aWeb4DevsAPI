@@ -1,4 +1,3 @@
-
 var FtpDeploy = require("ftp-deploy");
 const fs = require("fs");
 const pathToDir = "./uploads";
