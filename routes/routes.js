@@ -2,9 +2,6 @@
 
 // IMPORTS REQUIREDS
 var express = require("express");
-
-
-
 const multer = require("multer");
 var storage = multer.diskStorage({
   destination: "./uploads",
@@ -15,7 +12,10 @@ var storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 var ArticleController = require("../controllers/article.controller");
 var TechController = require("../controllers/tech.controller");
+var FtpController = require("../controllers/ftp.controller")
 var router = express.Router();
+
+
 
 // CRUD ROUTES
 
@@ -115,7 +115,7 @@ router.put("/article/:title", ArticleController.updateArticle);
  * @apiSuccess {Array[Array[string]]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String).
  */
 
-router.post("/save-article",upload.array("images"), ArticleController.saveArticle);
+router.post("/save-article",ArticleController.saveArticle);
 
 /**
  * @api {delete} /delete-article Deletes an Article
@@ -251,7 +251,7 @@ router.put("/tech/:title", TechController.updateTech);
  * @apiSuccess {Array[String]} content An Array of paragraphs and routes of images to create an tech
  * @apiSuccess {Array[Array[string]]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String).
  */
-router.post("/save-tech",upload.array("images"), TechController.saveTech);
+router.post("/save-tech", TechController.saveTech);
 
 /**
  * @api {get} /delete-tech:title Delete an tech
@@ -360,5 +360,7 @@ router.get(
  */
 
 router.get("/search-articles/:keyword", ArticleController.searchArticles);
+
+router.post("/hosting/save-images",upload.array("images"), FtpController.saveImage);
 
 module.exports = router;

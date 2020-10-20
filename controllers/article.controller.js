@@ -2,28 +2,24 @@ const Article = require("../models/article.model");
 const fs = require("fs");
 var FtpDeploy = require("ftp-deploy");
 
-const pathToDir = "./uploads"
-const removeDir = function(path) {
+const pathToDir = "./uploads";
+const removeDir = function (path) {
   if (fs.existsSync(path)) {
-    const files = fs.readdirSync(path)
-    
+    const files = fs.readdirSync(path);
+
     if (files.length > 0) {
-      files.forEach(function(filename) {
-     
-        
-          fs.unlinkSync(path + "/" + filename)
-       
-      })
+      files.forEach(function (filename) {
+        fs.unlinkSync(path + "/" + filename);
+      });
     } else {
-      console.log("No files found in the directory.")
+      console.log("No files found in the directory.");
     }
   } else {
-    console.log("Directory path not found.")
+    console.log("Directory path not found.");
   }
-}
+};
 var ftpDeploy = new FtpDeploy();
 var config = {
-
   user: "korvus@korvusweb.com",
   password: "nuestra 3mpresa k0rvus",
   host: "gator4228.hostgator.com",
@@ -90,7 +86,8 @@ function getAsideArticles(req, res) {
         }
       }
       if (err) return res.status(500).send({ message: `error nr: ${err}` });
-      if (!result) return res.status(404).send({ message: `No related articles` });
+      if (!result)
+        return res.status(404).send({ message: `No related articles` });
       res.status(200).send({ result });
     });
   });
@@ -169,7 +166,7 @@ function updateArticle(req, res) {
   );
 }
 function deleteArticle(req, res) {
-  let articleTitle = req.params.title; 
+  let articleTitle = req.params.title;
 
   Article.findOne({ title: articleTitle }, (err, article) => {
     article.remove((err) => {
@@ -182,35 +179,22 @@ function deleteArticle(req, res) {
   });
 }
 
-function saveArticle(req,res){
-    console.log(req.body)
-    let article = new Article()
-    article.title=req.body.title
-    article.type=req.body.type
-    article.summary=req.body.summary
-    article.img=req.body.img
-    article.date=new Date()
-    article.technologies=req.body.technologies
-    article.tags=req.body.tags
-    article.content=req.body.content
-    article.visits=parseInt(Math.random() * (101 - 50) + 50)
-        
+function saveArticle(req, res) {
+  console.log(req.body);
+  let article = new Article();
+  article.title = req.body.title;
+  article.type = req.body.type;
+  article.summary = req.body.summary;
+  article.img = req.body.img;
+  article.date = new Date();
+  article.technologies = req.body.technologies;
+  article.tags = req.body.tags;
+  article.content = req.body.content;
+  article.visits = parseInt(Math.random() * (101 - 50) + 50);
+
   article.save((err, savedArticle) => {
     if (err)
       res.status(500).send({ message: `Error saving the article ${err}` });
-
-      if (req.files) {
-        ftpDeploy.deploy(config, function (error, result) {
-          if (error) console.log(error);
-          else {
-            removeDir(pathToDir)
-            console.log("finished:", result);
-          }
-        });
-        
-      } else {
-        return res.status(500).send({ message: "Error uploading the Files" });
-      }
     res.status(200).send({ article: savedArticle });
   });
 }
