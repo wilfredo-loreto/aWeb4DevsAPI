@@ -12,12 +12,11 @@ const techSchema = Schema(
     logo: String,
     tags: Array,
     content: Array,
-    parent: String
+    parent: String,
   },
   {
     collection: "techs",
   }
 );
 
-    
-module.exports = mongoose.model('Tech',techSchema) 
+module.exports = mongoose.model("Tech", techSchema);

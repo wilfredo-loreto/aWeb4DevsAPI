@@ -86,7 +86,7 @@ function searchArticles(req, res) {
 function getMostVisitedsArticles(req, res) {
   Article.find(
     {},
-    { title: 1, summary: 1, date: 1, visits: 1, img: 1,_id:0},
+    { title: 1, summary: 1, date: 1, visits: 1, img: 1, _id: 0 },
     (err, articles) => {
       if (err) return res.status(500).send({ message: `error nr: ${err}` });
 
@@ -138,7 +138,7 @@ function saveArticle(req, res) {
   article.img = req.body.img;
   article.date = new Date();
   article.technologies = req.body.technologies;
-  article.tags = req.body.tags; 
+  article.tags = req.body.tags;
   article.content = req.body.content;
   article.visits = parseInt(Math.random() * (101 - 50) + 50);
 

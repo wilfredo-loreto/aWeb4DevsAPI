@@ -38,22 +38,27 @@ var config = {
   forcePasv: true,
 };
 
-function saveImage(req,res){    
-    if (!req.files) {
-  
-      return res.status(500).send({ message: "Error Uploading Files to Hosting. No Files Sent." });   
-        
-      } else {
-        ftpDeploy.deploy(config, function (err, filesUploaded) {
-          if (err) return res.status(500).send({message: `error deploying the images. Info: ${err}`})
-          else {
-            removeDir(pathToDir)
-            res.status(200).send({message:`Files Uploaded Correctly ${filesUploaded}`})
-          }
-        });
+function saveImage(req, res) {
+  if (!req.files) {
+    return res
+      .status(500)
+      .send({ message: "Error Uploading Files to Hosting. No Files Sent." });
+  } else {
+    ftpDeploy.deploy(config, function (err, filesUploaded) {
+      if (err)
+        return res
+          .status(500)
+          .send({ message: `error deploying the images. Info: ${err}` });
+      else {
+        removeDir(pathToDir);
+        res
+          .status(200)
+          .send({ message: `Files Uploaded Correctly ${filesUploaded}` });
       }
+    });
   }
+}
 
-  module.exports ={
-      saveImage
-  }
+module.exports = {
+  saveImage,
+};
