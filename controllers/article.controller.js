@@ -1,55 +1,4 @@
 const Article = require("../models/article.model");
-const fs = require("fs");
-var FtpDeploy = require("ftp-deploy");
-
-const pathToDir = "./uploads"
-const removeDir = function(path) {
-  if (fs.existsSync(path)) {
-    const files = fs.readdirSync(path)
-    
-    if (files.length > 0) {
-      files.forEach(function(filename) {
-     
-        
-          fs.unlinkSync(path + "/" + filename)
-       
-      })
-    } else {
-      console.log("No files found in the directory.")
-    }
-  } else {
-    console.log("Directory path not found.")
-  }
-}
-var ftpDeploy = new FtpDeploy();
-var config = {
-
-  user: "korvus@korvusweb.com",
-  password: "nuestra 3mpresa k0rvus",
-  host: "gator4228.hostgator.com",
-  port: 21,
-  localRoot: "./uploads",
-  remoteRoot: "/reactloreto.korvusweb.com/static/img",
-  include: ["*", ".*"],
-  exclude: [
-    "dist/**/*.map",
-    "node_modules/**",
-    "node_modules/**/.*",
-    "controllers/**/.*",
-    "doc/**/.*",
-    "models/**/.*",
-    "routes/**/.*",
-  ],
-  deleteRemote: false,
-  forcePasv: true,
-};
-const multer = require("multer");
-var storage = multer.diskStorage({
-  destination: "./uploads",
-  filename: function (req, file, cb) {
-    cb(null, req.body.title.split(" ").join("-") + "-" + file.originalname);
-  },
-});
 
 function getArticle(req, res) {
   let articleTitle = req.params.title.toLowerCase();
@@ -90,7 +39,8 @@ function getAsideArticles(req, res) {
         }
       }
       if (err) return res.status(500).send({ message: `error nr: ${err}` });
-      if (!result) return res.status(404).send({ message: `No related articles` });
+      if (!result)
+        return res.status(404).send({ message: `No related articles` });
       res.status(200).send({ result });
     });
   });
@@ -120,8 +70,6 @@ function getArticles(req, res) {
 
 function searchArticles(req, res) {
   let keyWord = req.params.keyword.toLowerCase().split(" ");
-  console.log(keyWord);
-
   Article.find(
     { tags: { $in: [keyWord[0], keyWord[1]] } },
     { title: 1, summary: 1, tags: 1, technologies: 1, _id: 0 },
@@ -138,7 +86,7 @@ function searchArticles(req, res) {
 function getMostVisitedsArticles(req, res) {
   Article.find(
     {},
-    { title: 1, summary: 1, date: 1, visits: 1, img: 1 },
+    { title: 1, summary: 1, date: 1, visits: 1, img: 1, _id: 0 },
     (err, articles) => {
       if (err) return res.status(500).send({ message: `error nr: ${err}` });
 
@@ -169,7 +117,7 @@ function updateArticle(req, res) {
   );
 }
 function deleteArticle(req, res) {
-  let articleTitle = req.params.title; 
+  let articleTitle = req.params.title;
 
   Article.findOne({ title: articleTitle }, (err, article) => {
     article.remove((err) => {
@@ -206,19 +154,6 @@ function saveArticle(req,res){
         article.save((err, savedArticle) => {
           if (err)
             res.status(500).send({ message: `Error saving the article ${err}` });
-      
-            if (req.files) {
-              ftpDeploy.deploy(config, function (err, res) {
-                if (err) console.log(err);
-                else {
-                  removeDir(pathToDir)
-                  console.log("finished:", res);
-                }
-              });
-              
-            } else {
-              return res.status(500).send({ message: "Error uploading the Files" });
-            }
           res.status(200).send({ article: savedArticle });
         });
 
