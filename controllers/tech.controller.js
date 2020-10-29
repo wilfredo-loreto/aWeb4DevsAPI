@@ -87,7 +87,7 @@ function updateTech(req, res) {
     if (err)
       return res.status(500).send({ message: `Error updating tech ${err}` });
 
-    res.status(200).send({ tech: techUpdated });
+    res.status(200).send("The tech was created");
   });
 }
 function deleteTech(req, res) {
@@ -125,12 +125,12 @@ function saveTech(req,res){
         
         tech.save((err, savedTech) => {
           if (err) res.status(500).send({ message: `Error saving the tech ${err}` });
-          res.status(200).send({ tech: savedTech });
+          res.status(200).send("The tech was edited");
         });
 
        }
     }) 
-        
+  }        
 
 function getTwoTechs(req, res) {
   Tech.find({}, { title: 1, img: 1, type: 1, _id: 0 }, (err, techs) => {

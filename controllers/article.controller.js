@@ -112,7 +112,7 @@ function updateArticle(req, res) {
           .status(500)
           .send({ message: `Error updating article ${err}` });
 
-      res.status(200).send({ article: articleUpdated });
+      res.status(200).send("The article was edited");
     }
   );
 }
@@ -154,7 +154,7 @@ function saveArticle(req,res){
         article.save((err, savedArticle) => {
           if (err)
             res.status(500).send({ message: `Error saving the article ${err}` });
-          res.status(200).send({ article: savedArticle });
+          res.status(200).send("The article was created");
         });
 
       }
