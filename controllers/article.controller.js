@@ -195,24 +195,39 @@ function saveArticle(req,res){
     article.content=req.body.content
     article.visits=parseInt(Math.random() * (101 - 50) + 50)
         
-  article.save((err, savedArticle) => {
-    if (err)
-      res.status(500).send({ message: `Error saving the article ${err}` });
+  Article.findOne({title: article.title},(err,article) => {
 
-      if (req.files) {
-        ftpDeploy.deploy(config, function (err, res) {
-          if (err) console.log(err);
-          else {
-            removeDir(pathToDir)
-            console.log("finished:", res);
-          }
+      if(article){
+
+        return res.send("That title is already in use");
+
+      }else{
+
+        article.save((err, savedArticle) => {
+          if (err)
+            res.status(500).send({ message: `Error saving the article ${err}` });
+      
+            if (req.files) {
+              ftpDeploy.deploy(config, function (err, res) {
+                if (err) console.log(err);
+                else {
+                  removeDir(pathToDir)
+                  console.log("finished:", res);
+                }
+              });
+              
+            } else {
+              return res.status(500).send({ message: "Error uploading the Files" });
+            }
+          res.status(200).send({ article: savedArticle });
         });
-        
-      } else {
-        return res.status(500).send({ message: "Error uploading the Files" });
+
       }
-    res.status(200).send({ article: savedArticle });
-  });
+
+
+  })
+
+  
 }
 
 function getThreeArticles(req, res) {

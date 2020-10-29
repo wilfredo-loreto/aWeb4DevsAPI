@@ -72,7 +72,6 @@ function getTechs(req,res){
 }
 
 
-
 function asideTechs(req,res){
     let techType  = req.params.type;
 
@@ -166,25 +165,38 @@ function saveTech(req,res){
     tech.tags=req.body.tags
     tech.content=req.body.content
     tech.parent=req.body.parent
+
+    Tech.findOne({title: tech.title},(err,tech) => {
+
+      if(tech){
+
+        return res.send("That title is already in use");
+
+      }else{
         
-    tech.save((err, savedTech) => {
+        tech.save((err, savedTech) => {
 
-        if (err) res.status(500).send({message: `Error saving the tech ${err}`})
-        if (req.files) {
-            ftpDeploy.deploy(config, function (err, res) {
-              if (err) console.log(err);
-              else {
-                removeDir(pathToDir)
-                console.log("finished:", res);
-              }
-            });
-            
-          } else {
-            return res.status(500).send({ message: "error Uploading Files to Hosting. Need to use Filezilla" });
-          }
-        res.status(200).send({tech: savedTech})
+          if (err) res.status(500).send({message: `Error saving the tech ${err}`})
+          if (req.files) {
+              ftpDeploy.deploy(config, function (err, res) {
+                if (err) console.log(err);
+                else {
+                  removeDir(pathToDir)
+                  console.log("finished:", res);
+                }
+              });
+              
+            } else {
+              return res.status(500).send({ message: "error Uploading Files to Hosting. Need to use Filezilla" });
+            }
+          res.status(200).send({tech: savedTech})
+  
+      })
 
-    })
+       }
+    }) 
+        
+    
 }
 
 function getTwoTechs(req, res) {
