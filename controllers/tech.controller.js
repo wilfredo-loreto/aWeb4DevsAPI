@@ -87,7 +87,7 @@ function updateTech(req, res) {
     if (err)
       return res.status(500).send({ message: `Error updating tech ${err}` });
 
-    res.status(200).send("The tech was created");
+    res.status(200).send("The tech was edited");
   });
 }
 function deleteTech(req, res) {
@@ -125,7 +125,7 @@ function saveTech(req,res){
         
         tech.save((err, savedTech) => {
           if (err) res.status(500).send({ message: `Error saving the tech ${err}` });
-          res.status(200).send("The tech was edited");
+          res.status(200).send("The tech was created");
         });
 
        }
