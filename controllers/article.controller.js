@@ -70,8 +70,6 @@ function getArticles(req, res) {
 
 function searchArticles(req, res) {
   let keyWord = req.params.keyword.toLowerCase().split(" ");
-  console.log(keyWord);
-
   Article.find(
     { tags: { $in: [keyWord[0], keyWord[1]] } },
     { title: 1, summary: 1, tags: 1, technologies: 1, _id: 0 },
@@ -133,7 +131,6 @@ function deleteArticle(req, res) {
 }
 
 function saveArticle(req, res) {
-  console.log(req.body);
   let article = new Article();
   article.title = req.body.title;
   article.type = req.body.type;

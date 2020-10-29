@@ -103,7 +103,6 @@ function deleteTech(req, res) {
 }
 
 function saveTech(req, res) {
-  console.log(req.body);
   let tech = new Tech();
   tech.title = req.body.title;
   tech.type = req.body.type;
