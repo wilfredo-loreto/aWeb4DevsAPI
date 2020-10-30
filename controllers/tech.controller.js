@@ -2,7 +2,7 @@ const Tech = require("../models/tech.model");
 
 function getTech(req, res) {
   let techTitle = req.params.title;
-  Tech.findOne({ title: techTitle }, (err, tech) => {
+  Tech.findOne({ title: techTitle },{_id:0}, (err, tech) => {
     if (err) return res.status(500).send({ message: `error nr: ${err}` });
 
     if (!tech)
