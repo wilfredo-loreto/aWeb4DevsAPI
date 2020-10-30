@@ -112,7 +112,7 @@ function updateArticle(req, res) {
           .status(500)
           .send({ message: `Error updating article ${err}` });
 
-      res.status(200).send({ article: articleUpdated });
+      res.status(200).send("The article was edited");
     }
   );
 }
@@ -130,23 +130,39 @@ function deleteArticle(req, res) {
   });
 }
 
-function saveArticle(req, res) {
-  let article = new Article();
-  article.title = req.body.title;
-  article.type = req.body.type;
-  article.summary = req.body.summary;
-  article.img = req.body.img;
-  article.date = new Date();
-  article.technologies = req.body.technologies;
-  article.tags = req.body.tags;
-  article.content = req.body.content;
-  article.visits = parseInt(Math.random() * (101 - 50) + 50);
+function saveArticle(req,res){
+    console.log(req.body)
+    let article = new Article()
+    article.title=req.body.title
+    article.type=req.body.type
+    article.summary=req.body.summary
+    article.img=req.body.img
+    article.date=new Date()
+    article.technologies=req.body.technologies
+    article.tags=req.body.tags
+    article.content=req.body.content
+    article.visits=parseInt(Math.random() * (101 - 50) + 50)
+        
+  Article.findOne({title: article.title},(err,article) => {
 
-  article.save((err, savedArticle) => {
-    if (err)
-      res.status(500).send({ message: `Error saving the article ${err}` });
-    res.status(200).send({ article: savedArticle });
-  });
+      if(article){
+
+        return res.send("That title is already in use");
+
+      }else{
+
+        article.save((err, savedArticle) => {
+          if (err)
+            res.status(500).send({ message: `Error saving the article ${err}` });
+          res.status(200).send("The article was created");
+        });
+
+      }
+
+
+  })
+
+  
 }
 
 function getThreeArticles(req, res) {

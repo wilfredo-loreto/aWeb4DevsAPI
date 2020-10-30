@@ -87,7 +87,7 @@ function updateTech(req, res) {
     if (err)
       return res.status(500).send({ message: `Error updating tech ${err}` });
 
-    res.status(200).send({ tech: techUpdated });
+    res.status(200).send("The tech was edited");
   });
 }
 function deleteTech(req, res) {
@@ -102,23 +102,35 @@ function deleteTech(req, res) {
   });
 }
 
-function saveTech(req, res) {
-  let tech = new Tech();
-  tech.title = req.body.title;
-  tech.type = req.body.type;
-  tech.summary = req.body.summary;
-  tech.img = req.body.img;
-  tech.date = new Date();
-  tech.logo = req.body.logo;
-  tech.tags = req.body.tags;
-  tech.content = req.body.content;
-  tech.parent = req.body.parent;
+function saveTech(req,res){
+    console.log(req.body)
+    let tech = new Tech()
+    tech.title=req.body.title
+    tech.type=req.body.type
+    tech.summary=req.body.summary
+    tech.img=req.body.img
+    tech.date=new Date()
+    tech.logo=req.body.logo
+    tech.tags=req.body.tags
+    tech.content=req.body.content
+    tech.parent=req.body.parent
 
-  tech.save((err, savedTech) => {
-    if (err) res.status(500).send({ message: `Error saving the tech ${err}` });
-    res.status(200).send({ tech: savedTech });
-  });
-}
+    Tech.findOne({title: tech.title},(err,tech) => {
+
+      if(tech){
+
+        return res.send("That title is already in use");
+
+      }else{
+        
+        tech.save((err, savedTech) => {
+          if (err) res.status(500).send({ message: `Error saving the tech ${err}` });
+          res.status(200).send("The tech was created");
+        });
+
+       }
+    }) 
+  }        
 
 function getTwoTechs(req, res) {
   Tech.find({}, { title: 1, img: 1, type: 1, _id: 0 }, (err, techs) => {
