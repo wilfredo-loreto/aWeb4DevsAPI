@@ -49,7 +49,7 @@
             "type": "String",
             "optional": false,
             "field": "img",
-            "description": "<p>The Route of the image saved in the hosting</p>"
+            "description": "<p>The Name of the image saved in the hosting</p>"
           },
           {
             "group": "Success 200",
@@ -60,17 +60,24 @@
           },
           {
             "group": "Success 200",
-            "type": "Array[Array[string]]",
+            "type": "Array[String]",
             "optional": false,
-            "field": "tags",
-            "description": "<p>2xN Matrix which have 2 Types of tags. Techonolgies[0] and Keywords[1] . Needed for aside and searchbar</p>"
+            "field": "technologies",
+            "description": "<p>An Array of technologies relationated with the current article</p>"
           },
           {
             "group": "Success 200",
             "type": "Array[String]",
             "optional": false,
+            "field": "tags",
+            "description": "<p>an Array of tags for the searchbar</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
             "field": "content",
-            "description": "<p>An Array of paragraphs and routes of images to create an article</p>"
+            "description": "<p>an object with all the dynamic content of the article in order. (images, texts, subtitles, references and lists)</p>"
           },
           {
             "group": "Success 200",
@@ -78,13 +85,6 @@
             "optional": false,
             "field": "visits",
             "description": "<p>The number of article visits</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Array[Array[string]]",
-            "optional": false,
-            "field": "references",
-            "description": "<p>2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String).</p>"
           }
         ]
       }
@@ -142,7 +142,7 @@
             "type": "String",
             "optional": false,
             "field": "img",
-            "description": "<p>The Route of the image saved in the hosting</p>"
+            "description": "<p>The Name of the image saved in the hosting</p>"
           },
           {
             "group": "Success 200",
@@ -153,17 +153,24 @@
           },
           {
             "group": "Success 200",
-            "type": "Array[Array[string]]",
+            "type": "Array[String]",
             "optional": false,
-            "field": "tags",
-            "description": "<p>2xN Matrix which have 2 Types of tags. Techonolgies[0] and Keywords[1] . Needed for aside and searchbar</p>"
+            "field": "technologies",
+            "description": "<p>An Array of technologies relationated with the current article</p>"
           },
           {
             "group": "Success 200",
             "type": "Array[String]",
             "optional": false,
+            "field": "tags",
+            "description": "<p>an Array of tags for the searchbar</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
             "field": "content",
-            "description": "<p>An Array of paragraphs and routes of images to create an article</p>"
+            "description": "<p>an object with all the dynamic content of the article in order. (images, texts, subtitles, references and lists)</p>"
           },
           {
             "group": "Success 200",
@@ -171,13 +178,6 @@
             "optional": false,
             "field": "visits",
             "description": "<p>The number of article visits</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Array[Array[string]]",
-            "optional": false,
-            "field": "references",
-            "description": "<p>2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String).</p>"
           }
         ]
       }
@@ -188,7 +188,7 @@
   {
     "type": "get",
     "url": "/articles",
-    "title": "Gets all the articles",
+    "title": "Gets every article",
     "version": "0.1.0",
     "name": "getArticles",
     "group": "Article",
@@ -215,7 +215,7 @@
             "type": "String",
             "optional": false,
             "field": "img",
-            "description": "<p>The Route of the image saved in the hosting</p>"
+            "description": "<p>image name saved in the hosting</p>"
           },
           {
             "group": "Success 200",
@@ -244,7 +244,7 @@
     "version": "0.1.0",
     "name": "getAsideArticles",
     "group": "Article",
-    "description": "<p>Gets the Relationated Articles in the DB based on current tags array (to be showed in aweb4devs.com/articles/currentArticle)</p>",
+    "description": "<p>Gets the Relationated Articles storeds in the DB</p>",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -252,8 +252,8 @@
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "asideArticles",
-            "description": "<p>an array of technologies tags separated by &quot;+&quot;</p>"
+            "field": "title",
+            "description": "<p>The article's title</p>"
           }
         ]
       }
@@ -263,10 +263,10 @@
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "Array[String]",
             "optional": false,
-            "field": "title",
-            "description": "<p>The article's title</p>"
+            "field": "result",
+            "description": "<p>an Array of related articles</p>"
           }
         ]
       }
@@ -304,7 +304,7 @@
             "type": "String",
             "optional": false,
             "field": "img",
-            "description": "<p>The Route of the image saved in the hosting</p>"
+            "description": "<p>The Name of the image saved in the hosting</p>"
           },
           {
             "group": "Success 200",
@@ -328,7 +328,7 @@
   },
   {
     "type": "get",
-    "url": "/homepage/3articles",
+    "url": "/homepage/news/3articles",
     "title": "Gets 3 recents articles",
     "version": "0.1.0",
     "name": "getThreeArticles",
@@ -356,7 +356,7 @@
             "type": "String",
             "optional": false,
             "field": "img",
-            "description": "<p>The Route of the image saved in the hosting</p>"
+            "description": "<p>The Name of the image saved in the hosting</p>"
           },
           {
             "group": "Success 200",
@@ -408,7 +408,7 @@
             "type": "String",
             "optional": false,
             "field": "img",
-            "description": "<p>The Route of the image saved in the hosting</p>"
+            "description": "<p>The Name of the image saved in the hosting</p>"
           },
           {
             "group": "Success 200",
@@ -419,17 +419,24 @@
           },
           {
             "group": "Success 200",
-            "type": "Array[Array[string]]",
+            "type": "Array[String]",
             "optional": false,
-            "field": "tags",
-            "description": "<p>2xN Matrix which have 2 Types of tags. Techonolgies[0] and Keywords[1] . Needed for aside and searchbar</p>"
+            "field": "technologies",
+            "description": "<p>An Array of technologies relationated with the current article</p>"
           },
           {
             "group": "Success 200",
             "type": "Array[String]",
             "optional": false,
+            "field": "tags",
+            "description": "<p>an Array of tags for the searchbar</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
             "field": "content",
-            "description": "<p>An Array of paragraphs and routes of images to create an article</p>"
+            "description": "<p>an object with all the dynamic content of the article in order. (images, texts, subtitles, references and lists)</p>"
           },
           {
             "group": "Success 200",
@@ -437,13 +444,6 @@
             "optional": false,
             "field": "visits",
             "description": "<p>The number of article visits</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Array[Array[string]]",
-            "optional": false,
-            "field": "references",
-            "description": "<p>2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String).</p>"
           }
         ]
       }
@@ -458,7 +458,7 @@
     "version": "0.1.0",
     "name": "searchArticles",
     "group": "Article",
-    "description": "<p>Gets all the articles based on tags matrix (techonologies and keywords)</p>",
+    "description": "<p>Search articles based on keywords (SearchBar)</p>",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -467,7 +467,7 @@
             "type": "String",
             "optional": false,
             "field": "keyword",
-            "description": "<p>One or more keywords for searching articles and techs (separateds by &quot;+&quot;)</p>"
+            "description": "<p>One or more keywords (separateds by &quot; &quot;)</p>"
           }
         ]
       }
@@ -487,14 +487,21 @@
             "type": "String",
             "optional": false,
             "field": "summary",
-            "description": "<p>The article's title</p>"
+            "description": "<p>The article's summary</p>"
           },
           {
             "group": "Success 200",
-            "type": "Array[Array[string]]",
+            "type": "Array[String]",
             "optional": false,
             "field": "tags",
-            "description": "<p>2xN Matrix which have 2 Types of tags. Techonolgies[0] and Keywords[1] . Needed for aside and searchbar</p>"
+            "description": "<p>An Array of tags for searchbar</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array[String]",
+            "optional": false,
+            "field": "technologies",
+            "description": "<p>An Array of relateds technologies</p>"
           }
         ]
       }
@@ -552,7 +559,7 @@
             "type": "String",
             "optional": false,
             "field": "img",
-            "description": "<p>The Route of the image saved in the hosting</p>"
+            "description": "<p>The Name of the image saved in the hosting</p>"
           },
           {
             "group": "Success 200",
@@ -563,17 +570,24 @@
           },
           {
             "group": "Success 200",
-            "type": "Array[Array[string]]",
+            "type": "Array[String]",
             "optional": false,
-            "field": "tags",
-            "description": "<p>2xN Matrix which have 2 Types of tags. Techonolgies[0] and Keywords[1] . Needed for aside and searchbar</p>"
+            "field": "technologies",
+            "description": "<p>An Array of technologies relationated with the current article</p>"
           },
           {
             "group": "Success 200",
             "type": "Array[String]",
             "optional": false,
+            "field": "tags",
+            "description": "<p>an Array of tags for the searchbar</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
             "field": "content",
-            "description": "<p>An Array of paragraphs and routes of images to create an article</p>"
+            "description": "<p>an object with all the dynamic content of the article in order. (images, texts, subtitles, references and lists)</p>"
           },
           {
             "group": "Success 200",
@@ -581,13 +595,6 @@
             "optional": false,
             "field": "visits",
             "description": "<p>The number of article visits</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Array[Array[string]]",
-            "optional": false,
-            "field": "references",
-            "description": "<p>2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String).</p>"
           }
         ]
       }
@@ -596,13 +603,44 @@
     "groupTitle": "Article"
   },
   {
+    "type": "post",
+    "url": "/hosting/save-images",
+    "title": "Upload images to hosting",
+    "version": "0.1.0",
+    "name": "uploadImages",
+    "description": "<p>Uploads an Array of images to the hosting asociating those images with the Document Title</p>",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>The Document's title</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "File",
+            "optional": false,
+            "field": "images",
+            "description": "<p>an Array of images in binary files</p>"
+          }
+        ]
+      }
+    },
+    "filename": "routes/routes.js",
+    "group": "E:\\OneDrive\\Escritorio\\aWeb4Devs Project\\api\\routes\\routes.js",
+    "groupTitle": "E:\\OneDrive\\Escritorio\\aWeb4Devs Project\\api\\routes\\routes.js"
+  },
+  {
     "type": "get",
     "url": "/aside-techs/:type",
-    "title": "Gets all title Techs",
+    "title": "Gets all tech Titles",
     "version": "0.1.0",
     "name": "asideTechs",
     "group": "Tech",
-    "description": "<p>Gets all title Techs based on title to be showed in the aside</p>",
+    "description": "<p>Gets all tech Titles to be showed in the aside based on type</p>",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -621,10 +659,10 @@
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "Array[Object]",
             "optional": false,
-            "field": "title",
-            "description": "<p>The tech's title</p>"
+            "field": "techs",
+            "description": "<p>Object with: Tech Title, Tech Type and tech Parent (if empty, it's a parent).</p>"
           }
         ]
       }
@@ -634,7 +672,7 @@
   },
   {
     "type": "get",
-    "url": "/carousel-techs/:type",
+    "url": "/homepage/carousel",
     "title": "Gets techs for carousel",
     "version": "0.1.0",
     "name": "carouselTechs",
@@ -668,7 +706,7 @@
             "type": "String",
             "optional": false,
             "field": "img",
-            "description": "<p>The Route of the image saved in the hosting</p>"
+            "description": "<p>The Name of the image saved in the hosting</p>"
           }
         ]
       }
@@ -677,13 +715,13 @@
     "groupTitle": "Tech"
   },
   {
-    "type": "get",
-    "url": "/delete-tech:title",
+    "type": "delete",
+    "url": "/delete-tech/:title",
     "title": "Delete an tech",
     "version": "0.1.0",
     "name": "deleteTech",
     "group": "Tech",
-    "description": "<p>Delete an tech on DB (CRUD Operation)</p>",
+    "description": "<p>Deletes a tech stored in the DB (CRUD Operation)</p>",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -733,35 +771,35 @@
             "type": "String",
             "optional": false,
             "field": "img",
-            "description": "<p>The Route of the image saved in the hosting</p>"
+            "description": "<p>The Name of the image saved in the hosting</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
             "field": "logo",
-            "description": "<p>The Route of the logo saved in the hosting</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Array[Array[string]]",
-            "optional": false,
-            "field": "tags",
-            "description": "<p>An Array have tags for searchbar</p>"
+            "description": "<p>The Name of the logo saved in the hosting</p>"
           },
           {
             "group": "Success 200",
             "type": "Array[String]",
             "optional": false,
-            "field": "content",
-            "description": "<p>An Array of paragraphs and routes of images to create an tech</p>"
+            "field": "tags",
+            "description": "<p>An Array of tags for searchbar</p>"
           },
           {
             "group": "Success 200",
-            "type": "Array[Array[string]]",
+            "type": "String",
             "optional": false,
-            "field": "references",
-            "description": "<p>2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String).</p>"
+            "field": "parent",
+            "description": "<p>The actual parent of the technology (if empty, it's a parent)</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "content",
+            "description": "<p>An object with all the dynamic content of the article in order. (images, texts, subtitles, references and lists)</p>"
           }
         ]
       }
@@ -771,7 +809,7 @@
   },
   {
     "type": "get",
-    "url": "/techs/:title",
+    "url": "/tech/:title",
     "title": "Gets an Tech",
     "version": "0.1.0",
     "name": "getTech",
@@ -826,35 +864,35 @@
             "type": "String",
             "optional": false,
             "field": "img",
-            "description": "<p>The Route of the image saved in the hosting</p>"
+            "description": "<p>The Name of the image saved in the hosting</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
             "field": "logo",
-            "description": "<p>The Route of the logo saved in the hosting</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Array[Array[string]]",
-            "optional": false,
-            "field": "tags",
-            "description": "<p>An Array have tags for searchbar</p>"
+            "description": "<p>The Name of the logo saved in the hosting</p>"
           },
           {
             "group": "Success 200",
             "type": "Array[String]",
             "optional": false,
-            "field": "content",
-            "description": "<p>An Array of paragraphs and routes of images to create an tech</p>"
+            "field": "tags",
+            "description": "<p>An Array of tags for searchbar</p>"
           },
           {
             "group": "Success 200",
-            "type": "Array[Array[string]]",
+            "type": "String",
             "optional": false,
-            "field": "references",
-            "description": "<p>2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String).</p>"
+            "field": "parent",
+            "description": "<p>The actual parent of the technology (if empty, it's a parent)</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "content",
+            "description": "<p>An object with all the dynamic content of the article in order. (images, texts, subtitles, references and lists)</p>"
           }
         ]
       }
@@ -888,6 +926,13 @@
         "Success 200": [
           {
             "group": "Success 200",
+            "type": "Array[string]",
+            "optional": false,
+            "field": "tags",
+            "description": "<p>An Array of tags for searchbar</p>"
+          },
+          {
+            "group": "Success 200",
             "type": "String",
             "optional": false,
             "field": "title",
@@ -905,14 +950,14 @@
             "type": "String",
             "optional": false,
             "field": "logo",
-            "description": "<p>The Route of the logo saved in the hosting</p>"
+            "description": "<p>The Name of the logo saved in the hosting</p>"
           },
           {
             "group": "Success 200",
-            "type": "Array[Array[string]]",
+            "type": "String",
             "optional": false,
-            "field": "tags",
-            "description": "<p>An Array have tags for searchbar</p>"
+            "field": "parent",
+            "description": "<p>The actual parent of the technology (if empty, it's a parent)</p>"
           }
         ]
       }
@@ -953,13 +998,6 @@
           },
           {
             "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "summary",
-            "description": "<p>The tech's summary</p>"
-          },
-          {
-            "group": "Success 200",
             "type": "Date",
             "optional": false,
             "field": "date",
@@ -970,7 +1008,7 @@
             "type": "String",
             "optional": false,
             "field": "img",
-            "description": "<p>The Route of the image saved in the hosting</p>"
+            "description": "<p>The Name of the image saved in the hosting</p>"
           }
         ]
       }
@@ -979,26 +1017,13 @@
     "groupTitle": "Tech"
   },
   {
-    "type": "get",
+    "type": "post",
     "url": "/save-tech",
     "title": "Saves an tech in DB",
     "version": "0.1.0",
     "name": "saveTech",
     "group": "Tech",
     "description": "<p>Saves a new tech in the db (CRUD Operation)</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "keyword",
-            "description": "<p>The tech tag</p>"
-          }
-        ]
-      }
-    },
     "success": {
       "fields": {
         "Success 200": [
@@ -1035,35 +1060,35 @@
             "type": "String",
             "optional": false,
             "field": "img",
-            "description": "<p>The Route of the image saved in the hosting</p>"
+            "description": "<p>The Name of the image saved in the hosting</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
             "field": "logo",
-            "description": "<p>The Route of the logo saved in the hosting</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Array[Array[string]]",
-            "optional": false,
-            "field": "tags",
-            "description": "<p>An Array have tags for searchbar</p>"
+            "description": "<p>The Name of the logo saved in the hosting</p>"
           },
           {
             "group": "Success 200",
             "type": "Array[String]",
             "optional": false,
-            "field": "content",
-            "description": "<p>An Array of paragraphs and routes of images to create an tech</p>"
+            "field": "tags",
+            "description": "<p>An Array of tags for searchbar</p>"
           },
           {
             "group": "Success 200",
-            "type": "Array[Array[string]]",
+            "type": "String",
             "optional": false,
-            "field": "references",
-            "description": "<p>2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String).</p>"
+            "field": "parent",
+            "description": "<p>The actual parent of the technology (if empty, it's a parent)</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "content",
+            "description": "<p>An object with all the dynamic content of the article in order. (images, texts, subtitles, references and lists)</p>"
           }
         ]
       }
@@ -1078,7 +1103,7 @@
     "version": "0.1.0",
     "name": "searchTechs",
     "group": "Tech",
-    "description": "<p>Gets Techs based on tags for search bar result</p>",
+    "description": "<p>Search Techs based on keywords (Searchbar Results) Separateds by &quot; &quot;</p>",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -1097,24 +1122,10 @@
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "Array[Object]",
             "optional": false,
-            "field": "title",
-            "description": "<p>The tech's title</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "summary",
-            "description": "<p>The tech's summary</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Array[Array[string]]",
-            "optional": false,
-            "field": "tags",
-            "description": "<p>An Array have tags for searchbar</p>"
+            "field": "techs",
+            "description": "<p>Object with: Array of related tags, Tech Title, Tech Type and tech Summary.</p>"
           }
         ]
       }
@@ -1123,8 +1134,8 @@
     "groupTitle": "Tech"
   },
   {
-    "type": "get",
-    "url": "/techs/:title",
+    "type": "put",
+    "url": "/tech/:title",
     "title": "Update An tech",
     "version": "0.1.0",
     "name": "updateTech",
@@ -1179,35 +1190,35 @@
             "type": "String",
             "optional": false,
             "field": "img",
-            "description": "<p>The Route of the image saved in the hosting</p>"
+            "description": "<p>The Name of the image saved in the hosting</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
             "field": "logo",
-            "description": "<p>The Route of the logo saved in the hosting</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Array[Array[string]]",
-            "optional": false,
-            "field": "tags",
-            "description": "<p>An Array have tags for searchbar</p>"
+            "description": "<p>The Name of the logo saved in the hosting</p>"
           },
           {
             "group": "Success 200",
             "type": "Array[String]",
             "optional": false,
-            "field": "content",
-            "description": "<p>An Array of paragraphs and routes of images to create an tech</p>"
+            "field": "tags",
+            "description": "<p>An Array of tags for searchbar</p>"
           },
           {
             "group": "Success 200",
-            "type": "Array[Array[string]]",
+            "type": "String",
             "optional": false,
-            "field": "references",
-            "description": "<p>2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String).</p>"
+            "field": "parent",
+            "description": "<p>The actual parent of the technology (if empty, it's a parent)</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "content",
+            "description": "<p>An object with all the dynamic content of the article in order. (images, texts, subtitles, references and lists)</p>"
           }
         ]
       }
