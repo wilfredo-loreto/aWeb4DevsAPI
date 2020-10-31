@@ -12,15 +12,13 @@ var storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 var ArticleController = require("../controllers/article.controller");
 var TechController = require("../controllers/tech.controller");
-var FtpController = require("../controllers/ftp.controller")
+var FtpController = require("../controllers/ftp.controller");
 var router = express.Router();
-
-
 
 // CRUD ROUTES
 
 /**
- * @api {get} /articles Gets all the articles
+ * @api {get} /articles Gets every article
  * @apiVersion 0.1.0
  * @apiName getArticles
  * @apiGroup Article
@@ -29,7 +27,7 @@ var router = express.Router();
  *
  * @apiSuccess {String} title The article's title
  * @apiSuccess {String} summary The article's title
- * @apiSuccess {String} img The Route of the image saved in the hosting
+ * @apiSuccess {String} img image name saved in the hosting
  * @apiSuccess {Date} date Release date of the article
  * @apiSuccess {Number} visits The number of article visits
  */
@@ -48,12 +46,12 @@ router.get("/articles", ArticleController.getArticles);
  * @apiSuccess {String} title The article's title
  * @apiSuccess {String} type Front-end / Back-end / Mixed (Both)
  * @apiSuccess {String} summary The article's title
- * @apiSuccess {String} img The Route of the image saved in the hosting
+ * @apiSuccess {String} img The Name of the image saved in the hosting
  * @apiSuccess {Date} date Release date of the article
- * @apiSuccess {Array[Array[string]]} tags 2xN Matrix which have 2 Types of tags. Techonolgies[0] and Keywords[1] . Needed for aside and searchbar
- * @apiSuccess {Array[String]} content An Array of paragraphs and routes of images to create an article
+ * @apiSuccess {Array[String]} technologies An Array of technologies relationated with the current article
+ * @apiSuccess {Array[String]} tags an Array of tags for the searchbar
+ * @apiSuccess {Object} content an object with all the dynamic content of the article in order. (images, texts, subtitles, references and lists)
  * @apiSuccess {Number} visits The number of article visits
- * @apiSuccess {Array[Array[string]]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String).
  */
 
 router.get("/article/:title", ArticleController.getArticle);
@@ -64,11 +62,11 @@ router.get("/article/:title", ArticleController.getArticle);
  * @apiName getAsideArticles
  * @apiGroup Article
  *
- * @apiDescription Gets the Relationated Articles in the DB based on current tags array (to be showed in aweb4devs.com/articles/currentArticle)
+ * @apiDescription Gets the Relationated Articles storeds in the DB
  *
- * @apiParam {String} asideArticles an array of technologies tags separated by "+"
+ * @apiParam {String} title The article's title
  *
- * @apiSuccess {String} title The article's title
+ * @apiSuccess {Array[String]} result an Array of related articles
  */
 
 router.get("/article/aside/:title", ArticleController.getAsideArticles);
@@ -86,12 +84,12 @@ router.get("/article/aside/:title", ArticleController.getAsideArticles);
  * @apiSuccess {String} title The article's title
  * @apiSuccess {String} type Front-end / Back-end / Mixed (Both)
  * @apiSuccess {String} summary The article's title
- * @apiSuccess {String} img The Route of the image saved in the hosting
+ * @apiSuccess {String} img The Name of the image saved in the hosting
  * @apiSuccess {Date} date Release date of the article
- * @apiSuccess {Array[Array[string]]} tags 2xN Matrix which have 2 Types of tags. Techonolgies[0] and Keywords[1] . Needed for aside and searchbar
- * @apiSuccess {Array[String]} content An Array of paragraphs and routes of images to create an article
+ * @apiSuccess {Array[String]} technologies An Array of technologies relationated with the current article
+ * @apiSuccess {Array[String]} tags an Array of tags for the searchbar
+ * @apiSuccess {Object} content an object with all the dynamic content of the article in order. (images, texts, subtitles, references and lists)
  * @apiSuccess {Number} visits The number of article visits
- * @apiSuccess {Array[Array[string]]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String).
  */
 
 router.put("/article/:title", ArticleController.updateArticle);
@@ -107,15 +105,15 @@ router.put("/article/:title", ArticleController.updateArticle);
  * @apiSuccess {String} title The article's title
  * @apiSuccess {String} type Front-end / Back-end / Mixed (Both)
  * @apiSuccess {String} summary The article's title
- * @apiSuccess {String} img The Route of the image saved in the hosting
+ * @apiSuccess {String} img The Name of the image saved in the hosting
  * @apiSuccess {Date} date Release date of the article
- * @apiSuccess {Array[Array[string]]} tags 2xN Matrix which have 2 Types of tags. Techonolgies[0] and Keywords[1] . Needed for aside and searchbar
- * @apiSuccess {Array[String]} content An Array of paragraphs and routes of images to create an article
+ * @apiSuccess {Array[String]} technologies An Array of technologies relationated with the current article
+ * @apiSuccess {Array[String]} tags an Array of tags for the searchbar
+ * @apiSuccess {Object} content an object with all the dynamic content of the article in order. (images, texts, subtitles, references and lists)
  * @apiSuccess {Number} visits The number of article visits
- * @apiSuccess {Array[Array[string]]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String).
- */
+ *  */
 
-router.post("/save-article",ArticleController.saveArticle);
+router.post("/save-article", ArticleController.saveArticle);
 
 /**
  * @api {delete} /delete-article Deletes an Article
@@ -130,15 +128,15 @@ router.post("/save-article",ArticleController.saveArticle);
  * @apiSuccess {String} title The article's title
  * @apiSuccess {String} type Front-end / Back-end / Mixed (Both)
  * @apiSuccess {String} summary The article's title
- * @apiSuccess {String} img The Route of the image saved in the hosting
+ * @apiSuccess {String} img The Name of the image saved in the hosting
  * @apiSuccess {Date} date Release date of the article
- * @apiSuccess {Array[Array[string]]} tags 2xN Matrix which have 2 Types of tags. Techonolgies[0] and Keywords[1] . Needed for aside and searchbar
- * @apiSuccess {Array[String]} content An Array of paragraphs and routes of images to create an article
+ * @apiSuccess {Array[String]} technologies An Array of technologies relationated with the current article
+ * @apiSuccess {Array[String]} tags an Array of tags for the searchbar
+ * @apiSuccess {Object} content an object with all the dynamic content of the article in order. (images, texts, subtitles, references and lists)
  * @apiSuccess {Number} visits The number of article visits
- * @apiSuccess {Array[Array[string]]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String). 
-*/
- 
-router.delete('/delete-article/:title',ArticleController.deleteArticle);
+ */
+
+router.delete("/delete-article/:title", ArticleController.deleteArticle);
 
 /**
  * @api {get} /techs/:type Gets all the techs based on type
@@ -150,24 +148,25 @@ router.delete('/delete-article/:title',ArticleController.deleteArticle);
  *
  * @apiParam {String} type The tech type
  *
+ * @apiSuccess {Array[string]} tags An Array of tags for searchbar
  * @apiSuccess {String} title The tech's title
  * @apiSuccess {String} summary The tech's summary
- * @apiSuccess {String} logo The Route of the logo saved in the hosting
- * @apiSuccess {Array[Array[string]]} tags An Array have tags for searchbar
+ * @apiSuccess {String} logo The Name of the logo saved in the hosting
+ * @apiSuccess {String} parent The actual parent of the technology (if empty, it's a parent)
  */
 router.get("/techs/:type", TechController.getTechs);
 
 /**
- * @api {get} /aside-techs/:type Gets all title Techs
+ * @api {get} /aside-techs/:type Gets all tech Titles
  * @apiVersion 0.1.0
  * @apiName asideTechs
  * @apiGroup Tech
  *
- * @apiDescription Gets all title Techs based on title to be showed in the aside
+ * @apiDescription Gets all tech Titles to be showed in the aside based on type
  *
  * @apiParam {String} type The tech type
  *
- * @apiSuccess {String} title The tech's title
+ * @apiSuccess {Array[Object]} techs Object with: Tech Title, Tech Type and tech Parent (if empty, it's a parent).
  */
 router.get("/aside-techs/:type", TechController.asideTechs);
 
@@ -177,18 +176,16 @@ router.get("/aside-techs/:type", TechController.asideTechs);
  * @apiName searchTechs
  * @apiGroup Tech
  *
- * @apiDescription Gets Techs based on tags for search bar result
+ * @apiDescription Search Techs based on keywords (Searchbar Results) Separateds by " "
  *
- *@apiParam {String}  keyword The tech tag
+ *  @apiParam {String}  keyword The tech tag
  *
- * @apiSuccess {String} title The tech's title
- * @apiSuccess {String} summary The tech's summary
- * @apiSuccess {Array[Array[string]]} tags An Array have tags for searchbar
+ * @apiSuccess {Array[Object]} techs Object with: Array of related tags, Tech Title, Tech Type and tech Summary.
  */
 router.get("/search-techs/:keyword", TechController.searchTechs);
 
 /**
- * @api {get} /techs/:title Gets an Tech
+ * @api {get} /tech/:title Gets an Tech
  * @apiVersion 0.1.0
  * @apiName getTech
  * @apiGroup Tech
@@ -201,16 +198,16 @@ router.get("/search-techs/:keyword", TechController.searchTechs);
  * @apiSuccess {String} type The tech's type, Font-end / Back-end
  * @apiSuccess {String} summary The tech's summary
  * @apiSuccess {Date} date Release date of the tech
- * @apiSuccess {String} img The Route of the image saved in the hosting
- * @apiSuccess {String} logo The Route of the logo saved in the hosting
- * @apiSuccess {Array[Array[string]]} tags An Array have tags for searchbar
- * @apiSuccess {Array[String]} content An Array of paragraphs and routes of images to create an tech
- * @apiSuccess {Array[Array[string]]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String).
+ * @apiSuccess {String} img The Name of the image saved in the hosting
+ * @apiSuccess {String} logo The Name of the logo saved in the hosting
+ * @apiSuccess {Array[String]} tags An Array of tags for searchbar
+ * @apiSuccess {String} parent The actual parent of the technology (if empty, it's a parent)
+ * @apiSuccess {Object} content An object with all the dynamic content of the article in order. (images, texts, subtitles, references and lists)
  */
 router.get("/tech/:title", TechController.getTech);
 
 /**
- * @api {get} /techs/:title Update An tech
+ * @api {put} /tech/:title Update An tech
  * @apiVersion 0.1.0
  * @apiName updateTech
  * @apiGroup Tech
@@ -223,43 +220,41 @@ router.get("/tech/:title", TechController.getTech);
  * @apiSuccess {String} type The tech's type, Font-end / Back-end
  * @apiSuccess {String} summary The tech's summary
  * @apiSuccess {Date} date Release date of the tech
- * @apiSuccess {String} img The Route of the image saved in the hosting
- * @apiSuccess {String} logo The Route of the logo saved in the hosting
- * @apiSuccess {Array[Array[string]]} tags An Array have tags for searchbar
- * @apiSuccess {Array[String]} content An Array of paragraphs and routes of images to create an tech
- * @apiSuccess {Array[Array[string]]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String).
+ * @apiSuccess {String} img The Name of the image saved in the hosting
+ * @apiSuccess {String} logo The Name of the logo saved in the hosting
+ * @apiSuccess {Array[String]} tags An Array of tags for searchbar
+ * @apiSuccess {String} parent The actual parent of the technology (if empty, it's a parent)
+ * @apiSuccess {Object} content An object with all the dynamic content of the article in order. (images, texts, subtitles, references and lists)
  */
 router.put("/tech/:title", TechController.updateTech);
 
 /**
- * @api {get} /save-tech Saves an tech in DB
+ * @api {post} /save-tech Saves an tech in DB
  * @apiVersion 0.1.0
  * @apiName saveTech
  * @apiGroup Tech
  *
  * @apiDescription Saves a new tech in the db (CRUD Operation)
  *
- * @apiParam {String}  keyword The tech tag
- *
  * @apiSuccess {String} title The tech's title
  * @apiSuccess {String} type The tech's type, Font-end / Back-end
  * @apiSuccess {String} summary The tech's summary
  * @apiSuccess {Date} date Release date of the tech
- * @apiSuccess {String} img The Route of the image saved in the hosting
- * @apiSuccess {String} logo The Route of the logo saved in the hosting
- * @apiSuccess {Array[Array[string]]} tags An Array have tags for searchbar
- * @apiSuccess {Array[String]} content An Array of paragraphs and routes of images to create an tech
- * @apiSuccess {Array[Array[string]]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String).
+ * @apiSuccess {String} img The Name of the image saved in the hosting
+ * @apiSuccess {String} logo The Name of the logo saved in the hosting
+ * @apiSuccess {Array[String]} tags An Array of tags for searchbar
+ * @apiSuccess {String} parent The actual parent of the technology (if empty, it's a parent)
+ * @apiSuccess {Object} content An object with all the dynamic content of the article in order. (images, texts, subtitles, references and lists)
  */
 router.post("/save-tech", TechController.saveTech);
 
 /**
- * @api {get} /delete-tech:title Delete an tech
+ * @api {delete} /delete-tech/:title Delete an tech
  * @apiVersion 0.1.0
  * @apiName deleteTech
  * @apiGroup Tech
  *
- * @apiDescription Delete an tech on DB (CRUD Operation)
+ * @apiDescription Deletes a tech stored in the DB (CRUD Operation)
  *
  * @apiParam {String}  title The tech title
  *
@@ -267,14 +262,13 @@ router.post("/save-tech", TechController.saveTech);
  * @apiSuccess {String} type The tech's type, Font-end / Back-end
  * @apiSuccess {String} summary The tech's summary
  * @apiSuccess {Date} date Release date of the tech
- * @apiSuccess {String} img The Route of the image saved in the hosting
- * @apiSuccess {String} logo The Route of the logo saved in the hosting
- * @apiSuccess {Array[Array[string]]} tags An Array have tags for searchbar
- * @apiSuccess {Array[String]} content An Array of paragraphs and routes of images to create an tech
- * @apiSuccess {Array[Array[string]]} references 2xN Matrix (N=Qty of references) which have Link[0] and Name[1] of the page references (String).
+ * @apiSuccess {String} img The Name of the image saved in the hosting
+ * @apiSuccess {String} logo The Name of the logo saved in the hosting
+ * @apiSuccess {Array[String]} tags An Array of tags for searchbar
+ * @apiSuccess {String} parent The actual parent of the technology (if empty, it's a parent)
+ * @apiSuccess {Object} content An object with all the dynamic content of the article in order. (images, texts, subtitles, references and lists)
  */
-router.delete('/delete-tech/:title',TechController.deleteTech);
-
+router.delete("/delete-tech/:title", TechController.deleteTech);
 
 /**
  * @api {get} /homepage/news/3articles  Gets 3 recents articles
@@ -286,7 +280,7 @@ router.delete('/delete-tech/:title',TechController.deleteTech);
  *
  * @apiSuccess {String} title The article's title
  * @apiSuccess {String} summary The article's title
- * @apiSuccess {String} img The Route of the image saved in the hosting
+ * @apiSuccess {String} img The Name of the image saved in the hosting
  * @apiSuccess {Date} date Release date of the article
  */
 
@@ -303,14 +297,13 @@ router.get("/homepage/news/3articles", ArticleController.getThreeArticles);
  * @apiParam {String}  title The tech title
  *
  * @apiSuccess {String} title The tech's title
- * @apiSuccess {String} summary The tech's summary
  * @apiSuccess {Date} date Release date of the tech
- * @apiSuccess {String} img The Route of the image saved in the hosting
+ * @apiSuccess {String} img The Name of the image saved in the hosting
  */
 router.get("/homepage/news/2techs", TechController.getTwoTechs);
 
 /**
- * @api {get} /homepage/carousel/:type Gets techs for carousel
+ * @api {get} /homepage/carousel Gets techs for carousel
  * @apiVersion 0.1.0
  * @apiName carouselTechs
  * @apiGroup Tech
@@ -320,7 +313,7 @@ router.get("/homepage/news/2techs", TechController.getTwoTechs);
  * @apiParam {String} type The tech type
  *
  * @apiSuccess {String} title The tech's title
- * @apiSuccess {String} img The Route of the image saved in the hosting
+ * @apiSuccess {String} img The Name of the image saved in the hosting
  */
 router.get("/homepage/carousel", TechController.carouselTechs);
 
@@ -334,15 +327,12 @@ router.get("/homepage/carousel", TechController.carouselTechs);
  *
  * @apiSuccess {String} title The article's title
  * @apiSuccess {String} summary The article's title
- * @apiSuccess {String} img The Route of the image saved in the hosting
+ * @apiSuccess {String} img The Name of the image saved in the hosting
  * @apiSuccess {Date} date Release date of the article
  * @apiSuccess {Number} visits The number of article visits
  */
 
-router.get(
-  "/homepage/news/most-visited-articles",
-  ArticleController.getMostVisitedsArticles
-);
+router.get("/homepage/news/most-visited-articles",ArticleController.getMostVisitedsArticles);
 
 /**
  * @api {get} /search-articles/:keyword Gets Results from searchbar
@@ -350,17 +340,34 @@ router.get(
  * @apiName searchArticles
  * @apiGroup Article
  *
- * @apiDescription Gets all the articles based on tags matrix (techonologies and keywords)
+ * @apiDescription Search articles based on keywords (SearchBar)
  *
- * @apiParam {String} keyword One or more keywords for searching articles and techs (separateds by "+")
+ * @apiParam {String} keyword One or more keywords (separateds by " ")
  *
  * @apiSuccess {String} title The article's title
- * @apiSuccess {String} summary The article's title
- * @apiSuccess {Array[Array[string]]} tags 2xN Matrix which have 2 Types of tags. Techonolgies[0] and Keywords[1] . Needed for aside and searchbar
+ * @apiSuccess {String} summary The article's summary
+ * @apiSuccess {Array[String]} tags An Array of tags for searchbar
+ * @apiSuccess {Array[String]} technologies An Array of relateds technologies
  */
 
 router.get("/search-articles/:keyword", ArticleController.searchArticles);
 
-router.post("/hosting/save-images",upload.array("images"), FtpController.saveImage); 
+/**
+ * @api {post} /hosting/save-images Upload images to hosting
+ * @apiVersion 0.1.0
+ * @apiName uploadImages
+ *
+ * @apiDescription Uploads an Array of images to the hosting asociating those images with the Document Title
+ *
+ *
+ * @apiSuccess {String} title The Document's title
+ * @apiSuccess {File} images an Array of images in binary files
+ */
+
+router.post(
+  "/hosting/save-images",
+  upload.array("images"),
+  FtpController.saveImage
+);
 
 module.exports = router;
