@@ -147,7 +147,7 @@ function saveArticle(req,res){
 
       if(article){
 
-        return res.send("That title is already in use");
+        return res.send("That title is already in usee");
 
       }else{
 
