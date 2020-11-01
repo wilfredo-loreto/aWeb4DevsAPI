@@ -115,9 +115,9 @@ function saveTech(req,res){
     tech.content=req.body.content
     tech.parent=req.body.parent
 
-    Tech.findOne({title: tech.title},(err,tech) => {
+    Tech.findOne({title: tech.title},(err,techDuplicat) => {
 
-      if(tech){
+      if(techDuplicate){
 
         return res.send("That title is already in use");
 
