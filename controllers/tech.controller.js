@@ -115,7 +115,7 @@ function saveTech(req,res){
     tech.content=req.body.content
     tech.parent=req.body.parent
 
-    Tech.findOne({title: tech.title},(err,techDuplicat) => {
+    Tech.findOne({title: tech.title},(err,techDuplicate) => {
 
       if(techDuplicate){
 
