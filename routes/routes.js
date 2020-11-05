@@ -94,7 +94,7 @@ router.get("/article/aside/:title", ArticleController.getAsideArticles);
  * @apiSuccess {Number} visits The number of article visits
  */
 
-router.put("/article/:title",updateVisits.addOneVisit, ArticleController.updateArticle);
+router.put("/article/:title", ArticleController.updateArticle);
 
 /**
  * @api {post} /save-article Saves an article in the db
@@ -115,7 +115,7 @@ router.put("/article/:title",updateVisits.addOneVisit, ArticleController.updateA
  * @apiSuccess {Number} visits The number of article visits
  *  */
 
-router.post("/save-article", auth.validatePassword, ArticleController.saveArticle);
+router.post("/save-article", ArticleController.saveArticle);
 
 /**
  * @api {delete} /delete-article Deletes an Article
@@ -138,7 +138,7 @@ router.post("/save-article", auth.validatePassword, ArticleController.saveArticl
  * @apiSuccess {Number} visits The number of article visits
  */
 
-router.delete("/delete-article/:title", auth.validatePassword, ArticleController.deleteArticle);
+router.delete("/delete-article/:title", ArticleController.deleteArticle);
 
 /**
  * @api {get} /techs/:type Gets all the techs based on type
@@ -228,7 +228,7 @@ router.get("/tech/:title", TechController.getTech);
  * @apiSuccess {String} parent The actual parent of the technology (if empty, it's a parent)
  * @apiSuccess {Object} content An object with all the dynamic content of the article in order. (images, texts, subtitles, references and lists)
  */
-router.put("/tech/:title", auth.validatePassword, TechController.updateTech);
+router.put("/tech/:title", TechController.updateTech);
 
 /**
  * @api {post} /save-tech Saves an tech in DB
@@ -248,7 +248,7 @@ router.put("/tech/:title", auth.validatePassword, TechController.updateTech);
  * @apiSuccess {String} parent The actual parent of the technology (if empty, it's a parent)
  * @apiSuccess {Object} content An object with all the dynamic content of the article in order. (images, texts, subtitles, references and lists)
  */
-router.post("/save-tech", auth.validatePassword, TechController.saveTech);
+router.post("/save-tech", TechController.saveTech);
 
 /**
  * @api {delete} /delete-tech/:title Delete an tech
@@ -270,7 +270,7 @@ router.post("/save-tech", auth.validatePassword, TechController.saveTech);
  * @apiSuccess {String} parent The actual parent of the technology (if empty, it's a parent)
  * @apiSuccess {Object} content An object with all the dynamic content of the article in order. (images, texts, subtitles, references and lists)
  */
-router.delete("/delete-tech/:title", auth.validatePassword, TechController.deleteTech);
+router.delete("/delete-tech/:title", TechController.deleteTech);
 
 /**
  * @api {get} /homepage/news/3articles  Gets 3 recents articles
