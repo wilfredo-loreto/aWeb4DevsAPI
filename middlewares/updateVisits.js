@@ -9,9 +9,7 @@ function addOneVisit(req, res, next) {
       { visits: addVisit },
       (err, articleUpdated) => {
         if (err)
-        return res
-        .status(500)
-        .send({ message: `Error updating article ${err}` });
+        return res.status(500).send({ message: `Error updating article ${err}` });
         res.status(200).send("The article was edited");
 
       }
