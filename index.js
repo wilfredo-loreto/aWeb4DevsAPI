@@ -1,24 +1,24 @@
 "use strict";
 
 var mongoose = require('mongoose');
+var config = require('./config')
 var app = require('./app');
-var port = 3700;
-var uri = 'mongodb+srv://wilfredo:aweb4devs19992020@cluster0.gqdek.mongodb.net/prueba1?retryWrites=true&w=majority';
 var options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify:false
 };
 
 mongoose.Promise = global.Promise;
-mongoose.connect(uri, options)
+mongoose.connect(config.uri, options)
         .then(() => {
             console.log("Conexion a la base de datos establecida satisfactoriamente /o/");
 
-            app.listen(process.env.PORT || port, () => {
+            app.listen(config.port, () => {
                 console.log("Servidor corriendo correctamente en la url: localhost:3700");
             });
         })
         .catch(err => console.log(err));
 
 
-app.set('port', process.env.PORT || port);       
+app.set('port', config.port);       
