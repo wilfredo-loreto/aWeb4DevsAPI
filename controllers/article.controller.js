@@ -143,11 +143,11 @@ function saveArticle(req,res){
     article.content=req.body.content
     article.visits=parseInt(Math.random() * (101 - 50) + 50)
         
-  Article.findOne({title: article.title},(err,article) => {
+  Article.findOne({title: article.title},(err,articleDuplicate) => {
 
-      if(article){
+      if(articleDuplicate){
 
-        return res.send("That title is already in use");
+        return res.send("That title is already in usee");
 
       }else{
 
