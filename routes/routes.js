@@ -138,7 +138,7 @@ router.post("/save-article", auth.validatePassword, ArticleController.saveArticl
  * @apiSuccess {Number} visits The number of article visits
  */
 
-router.delete("/delete-article/:title", ArticleController.deleteArticle);
+router.delete("/delete-article/:title", auth.validatePassword, ArticleController.deleteArticle);
 
 /**
  * @api {get} /techs/:type Gets all the techs based on type
@@ -270,7 +270,7 @@ router.post("/save-tech", auth.validatePassword, TechController.saveTech);
  * @apiSuccess {String} parent The actual parent of the technology (if empty, it's a parent)
  * @apiSuccess {Object} content An object with all the dynamic content of the article in order. (images, texts, subtitles, references and lists)
  */
-router.delete("/delete-tech/:title", TechController.deleteTech);
+router.delete("/delete-tech/:title", auth.validatePassword, TechController.deleteTech);
 
 /**
  * @api {get} /homepage/news/3articles  Gets 3 recents articles
