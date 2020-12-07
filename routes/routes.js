@@ -12,7 +12,6 @@ var storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 var ArticleController = require("../controllers/article.controller");
 var TechController = require("../controllers/tech.controller");
-var FtpController = require("../controllers/ftp.controller");
 var auth = require("../middlewares/auth")
 var updateVisits = require("../middlewares/updateVisits")
 var router = express.Router();
@@ -354,22 +353,5 @@ router.get("/homepage/news/most-visited-articles",ArticleController.getMostVisit
 
 router.get("/search-articles/:keyword", ArticleController.searchArticles);
 
-/**
- * @api {post} /hosting/save-images Upload images to hosting
- * @apiVersion 0.1.0
- * @apiName uploadImages
- *
- * @apiDescription Uploads an Array of images to the hosting asociating those images with the Document Title
- *
- *
- * @apiSuccess {String} title The Document's title
- * @apiSuccess {File} images an Array of images in binary files
- */
-
-router.post(
-  "/hosting/save-images",
-  upload.array("images"),
-  FtpController.saveImage
-);
 
 module.exports = router;
