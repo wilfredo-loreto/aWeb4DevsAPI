@@ -71,7 +71,7 @@ function getArticles(req, res) {
 function searchArticles(req, res) {
   let keyWord = req.params.keyword.toLowerCase().split(" ");
   Article.find(
-    { tags: { $in: [keyWord[0], keyWord[1]] } },
+    { tags: { $in: [keyWord[0], keyWord[1], keyWord[2], keyWord[3]] } },
     { title: 1, summary: 1, tags: 1, technologies: 1, _id: 0 },
     (err, articles) => {
       if (err) return res.status(500).send({ message: `error nr: ${err}` });
