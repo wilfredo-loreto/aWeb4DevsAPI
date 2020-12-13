@@ -1,7 +1,7 @@
 const Article = require("../models/article.model");
 
 function getArticle(req, res) {
-  let articleTitle = encodeURIComponent(req.params.title)
+  let articleTitle = req.params.title
   Article.findOne({ title: articleTitle }, { _id: 0 }, (err, article) => {
     if (err) return res.status(500).send({ message: `error nr: ${err}` });
 
