@@ -12,6 +12,7 @@ var storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 var ArticleController = require("../controllers/article.controller");
 var TechController = require("../controllers/tech.controller");
+var MailController = require("../controllers/mail.controller")
 var auth = require("../middlewares/auth")
 var updateVisits = require("../middlewares/updateVisits")
 var router = express.Router();
@@ -353,5 +354,18 @@ router.get("/homepage/news/most-visited-articles",ArticleController.getMostVisit
 
 router.get("/search-articles/:keyword", ArticleController.searchArticles);
 
+/**
+ * @api {post} /mail Sends mails to user and aweb4devs email
+ * @apiVersion 0.1.0
+ * @apiName SendMails
+ * @apiGroup Mail
+ *
+ * @apiDescription Sends mails to user and aweb4devs email (support@aweb4devs.com) from aweb4devs@gmail.com 
+ *
+ * @apiSuccess {String} email Email from Reminder
+ * @apiSuccess {String} content The content of the mail
+ */
+
+router.post("/mail",MailController.sendMails)
 
 module.exports = router;
