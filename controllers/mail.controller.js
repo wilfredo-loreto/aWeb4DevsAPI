@@ -14,7 +14,7 @@ function sendMails(req, res) {
     
   var mailOptionsAweb4devs = {
     from: req.body.email,
-    to: "support@aweb4devs.com",
+    to: "aweb4devs@gmail.com",
     subject: "New mail from aweb4devs.com by: " + req.body.email,
     text: req.body.content
   };
